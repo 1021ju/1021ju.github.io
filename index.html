@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ju Chen — AI Marketing & Content Strategy</title>
+<meta name="description" content="Philosophy PhD turned AI Marketing strategist. Built content engines, viral demos, and SEO pipelines that drove 13x impression growth.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --surface-2: #1e1e1e;
+  --border: #2a2a2a;
+  --text: #e5e5e5;
+  --text-secondary: #999;
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --green: #22c55e;
+  --amber: #f59e0b;
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+/* ── Hero ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.hero h1 .accent { color: var(--accent-light); }
+
+.hero .subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.hero .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  background: var(--surface);
+}
+
+/* ── Sections ── */
+section {
+  padding: 80px 0;
+  border-top: 1px solid var(--border);
+}
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent-light);
+  margin-bottom: 12px;
+}
+
+section h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 40px;
+}
+
+/* ── Metrics Grid ── */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.metric-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.metric-card .value {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.metric-card .value.green { color: var(--green); }
+.metric-card .value.accent { color: var(--accent-light); }
+.metric-card .value.amber { color: var(--amber); }
+
+.metric-card .label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ── Experience ── */
+.exp-block {
+  margin-bottom: 48px;
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.exp-header h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.exp-header .period {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.exp-company {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.exp-highlights {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.exp-highlights li {
+  padding-left: 20px;
+  position: relative;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.exp-highlights li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.exp-highlights li strong { color: var(--text); font-weight: 600; }
+
+/* ── Project Cards ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: border-color 0.2s;
+}
+
+.project-card:hover { border-color: var(--accent); }
+
+.project-card h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.project-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.project-card .project-stat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--green);
+}
+
+/* ── Skills ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.skill-group h4 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-light);
+  margin-bottom: 12px;
+}
+
+.skill-group ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skill-group ul li {
+  padding: 4px 12px;
+  background: var(--surface-2);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* ── Education ── */
+.edu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.edu-item:last-child { border-bottom: none; }
+
+.edu-item h4 { font-size: 1rem; font-weight: 600; }
+.edu-item .school { font-size: 0.9rem; color: var(--text-secondary); }
+.edu-item .year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ── Footer ── */
+footer {
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+footer .contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+footer a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+footer a:hover { color: var(--accent-light); }
+
+footer .copy {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 640px) {
+  .hero { padding: 60px 0; min-height: auto; }
+  section { padding: 48px 0; }
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+  .exp-header { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Hi, I'm <span class="accent">Ju Chen</span></h1>
+    <p class="subtitle">
+      Philosophy PhD (Cornell/Renmin) turned AI Marketing strategist.
+      I build content engines, SEO pipelines, and viral academic demos
+      that turn 170M papers into user growth.
+    </p>
+    <div class="tags">
+      <span class="tag">AI-Powered Content</span>
+      <span class="tag">SEO Strategy</span>
+      <span class="tag">Social Media Growth</span>
+      <span class="tag">Prompt Engineering</span>
+      <span class="tag">Claude Code Power User</span>
+      <span class="tag">Hugo / GitLab CI</span>
+    </div>
+  </div>
+
+  <!-- Key Metrics -->
+  <section>
+    <div class="section-label">Impact at a Glance</div>
+    <h2>What I shipped at DP Technology</h2>
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="value green">13x</div>
+        <div class="label">Weekly impressions growth<br>2K &rarr; 27K across all channels</div>
+      </div>
+      <div class="metric-card">
+        <div class="value accent">6.5</div>
+        <div class="label">Avg Google position<br>Blog SEO from zero, 23K impressions</div>
+      </div>
+      <div class="metric-card">
+        <div class="value amber">70%</div>
+        <div class="label">Blog traffic from viral demos<br>PhD Graveyard: 2K views, 1.3K users</div>
+      </div>
+      <div class="metric-card">
+        <div class="value green">4x</div>
+        <div class="label">Engagement growth<br>60 &rarr; 225 weekly interactions</div>
+      </div>
+      <div class="metric-card">
+        <div class="value accent">95+</div>
+        <div class="label">Custom Claude Code skills<br>+ 3 agent knowledge bases</div>
+      </div>
+      <div class="metric-card">
+        <div class="value amber">3,200</div>
+        <div class="label">Peak daily signups<br>Nobel Prize campaign</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section>
+    <div class="section-label">Experience</div>
+    <h2>Where I've worked</h2>
+
+    <div class="exp-block">
+      <div class="exp-header">
+        <h3>AI Marketing</h3>
+        <span class="period">2025.09 &mdash; present</span>
+      </div>
+      <div class="exp-company">DP Technology (Bohrium) &mdash; AI for Science platform, 170M+ academic papers</div>
+      <ul class="exp-highlights">
+        <li>Grew <strong>total weekly impressions from 2K to 27K (13x)</strong> across LinkedIn, X (4 accounts), Blog, Medium, and Reddit by building a full-stack content engine from scratch</li>
+        <li>Launched <strong>bohrium.com/blog</strong> from zero &mdash; designed 6 content sections, 8-module article structure, SEO prompt engineering system, and tag taxonomy (60+ &rarr; 9). Achieved <strong>avg Google position 6.5</strong> with 23K impressions in 3 months</li>
+        <li>Built <strong>3 independent AI agent systems</strong> (visual-brand, write-blog, conference-roundup) with persistent knowledge bases, orchestrating 95+ custom Claude Code skills for content production, SEO optimization, and brand visuals</li>
+        <li>Created <strong>13 viral academic demos</strong> (PhD Graveyard, Paper or Bullshit, Research Stock Market, etc.) using Bohrium's 170M paper database. PhD Graveyard Qingming edition drove <strong>2,028 views / 1,315 users</strong>, accounting for 55% of all blog traffic</li>
+        <li>Built <strong>ICLR 2026 conference pipeline</strong>: 5 custom skills (scraper &rarr; PDF fetcher &rarr; figure extractor &rarr; paper lookup &rarr; article writer), processing 5,356 papers &rarr; 53 selected &rarr; 1 hub article with <strong>2,300+ impressions in 2 days</strong></li>
+        <li>Grew <strong>LinkedIn 1,500 &rarr; 2,053 (+37%)</strong> and <strong>X 450 &rarr; 832 (+85%)</strong> via author-tagging strategy for Paper of the Day, reaching <strong>2,000+ single-post impressions</strong> when authors reshared</li>
+        <li>Planned <strong>50 programmatic SEO pages</strong> ("Is X Dying?") based on Google Trends research across 115 disciplines, targeting high-volume anxiety searches</li>
+      </ul>
+    </div>
+
+    <div class="exp-block">
+      <div class="exp-header">
+        <h3>AI Content Marketing & Strategy Consultant</h3>
+        <span class="period">2024.12 &mdash; 2025.07</span>
+      </div>
+      <div class="exp-company">Inception AI (RunComfy) &mdash; ComfyUI platform</div>
+      <ul class="exp-highlights">
+        <li>Wrote and optimized <strong>100+ ComfyUI workflow pages</strong>, 90% ranking on Google page 1, driving <strong>128% monthly traffic growth</strong> (350K &rarr; 800K)</li>
+        <li>Built LoRA screening system monitoring 20+ model platforms, achieving <strong>20+ pages/day</strong> stable output via n8n automation</li>
+        <li>Launched creator collaborations with OpenArt/Civitai influencers, boosting LinkedIn engagement by 35% and X by 27%</li>
+      </ul>
+    </div>
+
+    <div class="exp-block">
+      <div class="exp-header">
+        <h3>Strategic Advisor (CEO Office)</h3>
+        <span class="period">2025.02 &mdash; 2025.09</span>
+      </div>
+      <div class="exp-company">KE Holdings (Beike) &mdash; NYSE-listed real estate platform</div>
+      <ul class="exp-highlights">
+        <li>Synthesized insights from 100+ books and academic papers across history, philosophy, and culture into actionable strategies for overseas market expansion</li>
+        <li>Delivered bi-monthly executive briefings translating academic concepts into competitive intelligence for C-level leadership</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section>
+    <div class="section-label">Selected Projects</div>
+    <h2>Things I built</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <h4>PhD Graveyard</h4>
+        <p>95 "dead" research fields as gravestones. Global flower API via Cloudflare Workers + KV. Qingming edition with burning paper animations and 123 graves.</p>
+        <div class="project-stat">2,028 views &middot; 1,315 users &middot; 55% of blog traffic</div>
+      </div>
+      <div class="project-card">
+        <h4>Conference Roundup Pipeline</h4>
+        <p>5 custom Claude Code skills: OpenReview scraper &rarr; PDF fetcher &rarr; figure extractor &rarr; Bohrium lookup &rarr; article generator. Full automation.</p>
+        <div class="project-stat">5,356 papers &rarr; 53 selected &rarr; 2,300+ impr in 2 days</div>
+      </div>
+      <div class="project-card">
+        <h4>Research Stock Market</h4>
+        <p>Bloomberg-terminal style visualization of 30 research disciplines as stocks. Real data from Bohrium's 170M paper API. OHLC candlestick charts.</p>
+        <div class="project-stat">50 SEO discipline pages planned</div>
+      </div>
+      <div class="project-card">
+        <h4>Paper or Bullshit?</h4>
+        <p>Can you tell real papers from fake ones? 153 real + 50 generated titles. 15-second timer. Soft login gate on 2nd play. All papers link to Bohrium.</p>
+        <div class="project-stat">203 questions &middot; live in production</div>
+      </div>
+      <div class="project-card">
+        <h4>Blog SEO Engine</h4>
+        <p>Complete prompt engineering system: meta_title/description formats, 8-module article structure, SciencePedia keyword injection, batch refresh scripts.</p>
+        <div class="project-stat">Avg Google position 6.5 &middot; 23K impressions</div>
+      </div>
+      <div class="project-card">
+        <h4>AI Agent System</h4>
+        <p>3 independent agents with persistent knowledge bases (visual-brand, write-blog, conference-roundup). 95+ custom skills. Auto-memory across sessions.</p>
+        <div class="project-stat">Full content production pipeline</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section>
+    <div class="section-label">Skills</div>
+    <h2>What I work with</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4>AI & Automation</h4>
+        <ul>
+          <li>Claude Code</li>
+          <li>Prompt Engineering</li>
+          <li>LLM Pipelines</li>
+          <li>Gemini API</li>
+          <li>ComfyUI</li>
+          <li>n8n</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Marketing & SEO</h4>
+        <ul>
+          <li>Content Strategy</li>
+          <li>Technical SEO</li>
+          <li>Google Search Console</li>
+          <li>Google Analytics</li>
+          <li>Social Media Growth</li>
+          <li>Programmatic SEO</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Engineering</h4>
+        <ul>
+          <li>Hugo (SSG)</li>
+          <li>Git / GitLab CI/CD</li>
+          <li>Python</li>
+          <li>HTML/CSS/JS</li>
+          <li>Cloudflare Workers</li>
+          <li>Docker</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Design & Content</h4>
+        <ul>
+          <li>Figma</li>
+          <li>Photoshop</li>
+          <li>Premiere</li>
+          <li>Academic Writing</li>
+          <li>Bilingual (EN/ZH)</li>
+          <li>TOEFL 105</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section>
+    <div class="section-label">Education</div>
+    <h2>Background</h2>
+    <div class="edu-item">
+      <div>
+        <h4>Ph.D. in Analytic Philosophy</h4>
+        <div class="school">Renmin University of China &mdash; Language philosophy, emotion functionalism. 2 CSSCI publications, 2 translated books (200K+ words)</div>
+      </div>
+      <span class="year">2019 &mdash; 2026</span>
+    </div>
+    <div class="edu-item">
+      <div>
+        <h4>Visiting Scholar</h4>
+        <div class="school">Cornell University, Dept. of Philosophy &mdash; Moral psychology with Kate Manne & Shaun Nichols</div>
+      </div>
+      <span class="year">2021 &mdash; 2022</span>
+    </div>
+    <div class="edu-item">
+      <div>
+        <h4>M.A. in Analytic Philosophy</h4>
+        <div class="school">Renmin University of China &mdash; National Scholarship 2018, Guanghua Scholarship</div>
+      </div>
+      <span class="year">2016 &mdash; 2019</span>
+    </div>
+    <div class="edu-item">
+      <div>
+        <h4>B.A. in Philosophy</h4>
+        <div class="school">East China Normal University &mdash; Ranked #1, full scholarship</div>
+      </div>
+      <span class="year">2012 &mdash; 2016</span>
+    </div>
+  </section>
+
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="contact-links">
+      <a href="mailto:juchen1128@hotmail.com">juchen1128@hotmail.com</a>
+      <a href="https://github.com/1021ju" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/ju-chen-cornell/" target="_blank">LinkedIn</a>
+    </div>
+    <div class="copy">Built with care. Powered by curiosity.</div>
+  </div>
+</footer>
+
+</body>
+</html>
