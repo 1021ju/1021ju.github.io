@@ -20,22 +20,21 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  /* Palette — warm neutrals tinted toward paper */
   --paper:    oklch(96% 0.012 85);
   --paper-2:  oklch(93% 0.014 85);
   --ink:      oklch(22% 0.025 65);
   --ink-soft: oklch(42% 0.020 65);
+  --ink-xs:   oklch(58% 0.015 65);
   --rule:     oklch(82% 0.014 80);
   --rule-soft:oklch(88% 0.012 80);
-  --accent:   oklch(34% 0.115 262);  /* fountain-pen indigo */
-  --mark:     oklch(92% 0.095 88);   /* highlighter cream */
+  --accent:   oklch(34% 0.115 262);
+  --accent-2: oklch(52% 0.105 262);
+  --mark:     oklch(92% 0.095 88);
 
-  /* Scale */
   --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
   --s-5: 24px; --s-6: 32px; --s-7: 48px;
   --s-8: 64px; --s-9: 96px; --s-10: 128px;
 
-  /* Type */
   --display: 'Young Serif', 'Georgia', serif;
   --body: 'Schibsted Grotesk', -apple-system, sans-serif;
 }
@@ -86,18 +85,10 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
   color: var(--ink);
   letter-spacing: 0.01em;
 }
-.meta nav {
-  display: flex;
-  gap: var(--s-4);
-  flex-wrap: wrap;
-}
+.meta nav { display: flex; gap: var(--s-4); flex-wrap: wrap; }
 .meta nav a { text-decoration: none; }
 .meta nav a:hover { color: var(--accent); }
-.meta .status {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 6px;
-}
+.meta .status { display: inline-flex; align-items: baseline; gap: 6px; }
 .meta .status::before {
   content: "";
   display: inline-block;
@@ -117,12 +108,8 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
   letter-spacing: 0.02em;
   color: var(--ink-soft);
   margin-bottom: var(--s-6);
-  text-transform: none;
 }
-.kicker em {
-  font-style: normal;
-  color: var(--ink);
-}
+.kicker em { font-style: normal; color: var(--ink); }
 .hero h1 {
   font-family: var(--display);
   font-weight: 400;
@@ -144,19 +131,14 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
   max-width: 55ch;
   margin-bottom: var(--s-7);
 }
-.hero .lede strong {
-  font-weight: 600;
-  color: var(--ink);
-}
+.hero .lede strong { font-weight: 600; color: var(--ink); }
 .hero .contacts {
   display: flex;
   flex-wrap: wrap;
   gap: var(--s-5);
   font-size: 0.9375rem;
 }
-.hero .contacts a {
-  text-decoration-color: var(--ink-soft);
-}
+.hero .contacts a { text-decoration-color: var(--ink-soft); }
 
 /* ── Section shell ──────────────────────────────────────── */
 section.block {
@@ -194,11 +176,7 @@ section.block:last-of-type { border-bottom: none; }
 .section-meta .sep { color: var(--rule); }
 
 /* ── Work entries ───────────────────────────────────────── */
-.entries {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-8);
-}
+.entries { display: flex; flex-direction: column; gap: var(--s-8); }
 .entry {
   display: grid;
   grid-template-columns: 48px 1fr;
@@ -211,7 +189,6 @@ section.block:last-of-type { border-bottom: none; }
   color: var(--accent);
   line-height: 1;
   padding-top: 6px;
-  font-feature-settings: "lnum";
 }
 .entry h3 {
   font-family: var(--display);
@@ -229,10 +206,7 @@ section.block:last-of-type { border-bottom: none; }
   max-width: 58ch;
   margin-bottom: var(--s-4);
 }
-.entry .prose strong {
-  font-weight: 600;
-  color: var(--ink);
-}
+.entry .prose strong { font-weight: 600; color: var(--ink); }
 .entry .try {
   display: inline-flex;
   align-items: center;
@@ -248,12 +222,9 @@ section.block:last-of-type { border-bottom: none; }
   transition: transform 180ms ease;
 }
 .entry .try:hover::after { transform: translateX(3px); }
-.entry .try.muted {
-  color: var(--ink-soft);
-  border-bottom-color: var(--rule);
-}
+.entry .try.muted { color: var(--ink-soft); border-bottom-color: var(--rule); }
 
-/* ── Experience blocks ──────────────────────────────────── */
+/* ── Job blocks ─────────────────────────────────────────── */
 .jobs { display: flex; flex-direction: column; gap: var(--s-8); }
 .job { display: grid; grid-template-columns: 48px 1fr; gap: var(--s-5); }
 .job .n {
@@ -267,7 +238,7 @@ section.block:last-of-type { border-bottom: none; }
   flex-wrap: wrap;
   align-items: baseline;
   gap: var(--s-3) var(--s-4);
-  margin-bottom: var(--s-3);
+  margin-bottom: var(--s-4);
 }
 .job h3 {
   font-family: var(--display);
@@ -277,11 +248,7 @@ section.block:last-of-type { border-bottom: none; }
   letter-spacing: -0.005em;
   color: var(--ink);
 }
-.job .co {
-  font-size: 0.9375rem;
-  color: var(--ink-soft);
-  font-style: italic;
-}
+.job .co { font-size: 0.9375rem; color: var(--ink-soft); font-style: italic; }
 .job .when {
   font-size: 0.8125rem;
   color: var(--ink-soft);
@@ -289,20 +256,96 @@ section.block:last-of-type { border-bottom: none; }
   margin-left: auto;
   font-variant-numeric: tabular-nums;
 }
-.job .prose {
-  font-size: 1rem;
-  line-height: 1.65;
+.job .prose { font-size: 1rem; line-height: 1.65; color: var(--ink); max-width: 58ch; }
+.job .prose strong { font-weight: 600; }
+.job .prose + .prose { margin-top: var(--s-4); }
+
+/* ── Earlier jobs (compact) ─────────────────────────────── */
+.earlier {
+  margin-top: var(--s-8);
+  padding-top: var(--s-7);
+  border-top: 1px solid var(--rule-soft);
+}
+.earlier .small-meta {
+  font-family: var(--body);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-xs);
+  margin-bottom: var(--s-5);
+}
+.earlier-list { display: flex; flex-direction: column; gap: var(--s-5); }
+.earlier-row {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: var(--s-5);
+  align-items: baseline;
+  padding-bottom: var(--s-5);
+  border-bottom: 1px solid var(--rule-soft);
+}
+.earlier-row:last-child { border-bottom: none; }
+.earlier-row .n { font-family: var(--display); font-size: 1rem; color: var(--accent); }
+.earlier-row h4 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.125rem;
   color: var(--ink);
+  margin-bottom: var(--s-1);
+}
+.earlier-row .bits { font-size: 0.9375rem; color: var(--ink-soft); line-height: 1.6; }
+.earlier-row .when { font-size: 0.8125rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+
+/* ── Growth figure ──────────────────────────────────────── */
+.growth {
+  margin: var(--s-7) 0 var(--s-5);
+  padding: var(--s-6) 0 var(--s-5);
+  border-top: 1px solid var(--rule-soft);
+  border-bottom: 1px solid var(--rule-soft);
+}
+.growth-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.growth-svg .axis-label {
+  font-family: var(--body);
+  font-size: 10px;
+  fill: var(--ink-xs);
+  font-variant-numeric: tabular-nums;
+}
+.growth-svg .annot-label {
+  font-family: var(--display);
+  font-size: 13px;
+  fill: var(--ink);
+}
+.growth-svg .annot-sub {
+  font-family: var(--body);
+  font-size: 10.5px;
+  fill: var(--ink-soft);
+}
+.growth-svg .dot { fill: var(--accent); }
+.growth-svg .leader { stroke: var(--ink-xs); stroke-width: 0.75; stroke-dasharray: 2 2.5; }
+.growth-svg .line { stroke: var(--accent); stroke-width: 1.75; fill: none; stroke-linejoin: round; stroke-linecap: round; }
+.growth-svg .area { fill: var(--accent); fill-opacity: 0.08; }
+.growth-svg .baseline { stroke: var(--rule); stroke-width: 1; }
+.growth-svg .endcap { fill: var(--accent); font-family: var(--body); font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.figcaption {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin-top: var(--s-4);
   max-width: 58ch;
 }
-.job .prose strong { font-weight: 600; }
+.figcaption .fig-tag {
+  font-family: var(--display);
+  color: var(--accent);
+  margin-right: var(--s-2);
+  letter-spacing: 0.02em;
+}
 
 /* ── Stack ──────────────────────────────────────────────── */
-.stack-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-5);
-}
+.stack-list { display: flex; flex-direction: column; gap: var(--s-5); }
 .stack-row {
   display: grid;
   grid-template-columns: 140px 1fr;
@@ -312,18 +355,25 @@ section.block:last-of-type { border-bottom: none; }
   border-bottom: 1px solid var(--rule-soft);
 }
 .stack-row:last-child { border-bottom: none; }
-.stack-row dt {
+.stack-row dt { font-family: var(--display); font-weight: 400; font-size: 1.125rem; color: var(--ink); }
+.stack-row dd { font-size: 0.9375rem; color: var(--ink); line-height: 1.7; }
+
+/* ── Elsewhere ──────────────────────────────────────────── */
+.elsewhere-list { display: flex; flex-direction: column; gap: var(--s-7); }
+.else-entry { display: grid; grid-template-columns: 48px 1fr; gap: var(--s-5); align-items: baseline; }
+.else-entry .n { font-family: var(--display); font-size: 1.25rem; color: var(--accent); padding-top: 4px; }
+.else-entry h4 {
   font-family: var(--display);
   font-weight: 400;
-  font-size: 1.125rem;
+  font-size: 1.35rem;
+  line-height: 1.2;
   color: var(--ink);
+  margin-bottom: var(--s-2);
+  letter-spacing: -0.005em;
 }
-.stack-row dd {
-  font-size: 0.9375rem;
-  color: var(--ink);
-  line-height: 1.7;
-}
-.stack-row dd span { color: var(--ink-soft); }
+.else-entry .when { font-size: 0.8125rem; color: var(--ink-soft); margin-bottom: var(--s-3); font-variant-numeric: tabular-nums; }
+.else-entry p { font-size: 0.9375rem; line-height: 1.6; color: var(--ink); max-width: 58ch; }
+.else-entry p strong { font-weight: 600; }
 
 /* ── Formation ──────────────────────────────────────────── */
 .formation ol { list-style: none; }
@@ -337,12 +387,7 @@ section.block:last-of-type { border-bottom: none; }
 }
 .edu:first-child { padding-top: 0; }
 .edu:last-child { border-bottom: none; padding-bottom: 0; }
-.edu .year {
-  font-size: 0.8125rem;
-  color: var(--ink-soft);
-  letter-spacing: 0.01em;
-  font-variant-numeric: tabular-nums;
-}
+.edu .year { font-size: 0.8125rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
 .edu h4 {
   font-family: var(--display);
   font-weight: 400;
@@ -351,18 +396,10 @@ section.block:last-of-type { border-bottom: none; }
   margin-bottom: var(--s-2);
   letter-spacing: -0.005em;
 }
-.edu p {
-  font-size: 0.9375rem;
-  color: var(--ink-soft);
-  line-height: 1.55;
-  max-width: 52ch;
-}
+.edu p { font-size: 0.9375rem; color: var(--ink-soft); line-height: 1.55; max-width: 52ch; }
 
 /* ── Footer ─────────────────────────────────────────────── */
-footer {
-  padding: var(--s-9) 0 var(--s-7);
-  border-top: 1px solid var(--rule);
-}
+footer { padding: var(--s-9) 0 var(--s-7); border-top: 1px solid var(--rule); }
 footer .cta {
   font-family: var(--display);
   font-weight: 400;
@@ -377,6 +414,15 @@ footer .cta a {
   text-decoration-thickness: 2px;
   text-underline-offset: 6px;
 }
+footer .contact-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-5);
+  margin-top: var(--s-5);
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+footer .contact-details .sep { color: var(--rule); }
 footer .colophon {
   display: flex;
   flex-wrap: wrap;
@@ -397,12 +443,15 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
   .meta nav { order: 3; width: 100%; }
   .hero { padding: var(--s-7) 0 var(--s-8); }
   section.block { padding: var(--s-8) 0; }
-  .entry, .job { grid-template-columns: 32px 1fr; gap: var(--s-4); }
-  .entry .n, .job .n { font-size: 1rem; padding-top: 4px; }
+  .entry, .job, .else-entry { grid-template-columns: 32px 1fr; gap: var(--s-4); }
+  .entry .n, .job .n, .else-entry .n { font-size: 1rem; padding-top: 4px; }
+  .earlier-row { grid-template-columns: 32px 1fr; }
+  .earlier-row .when { grid-column: 1 / -1; padding-left: 48px; }
   .stack-row { grid-template-columns: 1fr; gap: var(--s-2); }
   .stack-row dt { font-size: 1rem; color: var(--accent); }
   .edu { grid-template-columns: 1fr; gap: var(--s-2); }
   .edu .year { order: 2; }
+  .growth-svg .annot-label, .growth-svg .annot-sub { font-size: 11px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -410,14 +459,12 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
   html { scroll-behavior: auto; }
 }
 
-/* ── Page-load reveal (restrained) ──────────────────────── */
+/* ── Page-load reveal ───────────────────────────────────── */
 .reveal { opacity: 0; transform: translateY(6px); animation: rise 520ms cubic-bezier(.2,.6,.2,1) forwards; }
 .reveal.d2 { animation-delay: 80ms; }
 .reveal.d3 { animation-delay: 160ms; }
 .reveal.d4 { animation-delay: 240ms; }
-@keyframes rise {
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes rise { to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
@@ -428,9 +475,10 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
     <a href="#work">Work</a>
     <a href="#record">Record</a>
     <a href="#stack">Stack</a>
+    <a href="#elsewhere">Elsewhere</a>
     <a href="#formation">Formation</a>
   </nav>
-  <div class="status">Open to new roles</div>
+  <div class="status">Open to new roles · from May 2026</div>
 </header>
 
 <main class="wrap">
@@ -444,10 +492,12 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
       I turn research into <span class="mk">attention</span> — usually by building something weird enough to ship.
     </h1>
     <p class="lede reveal d3">
-      Eight months at Bohrium (DP Technology) I grew weekly impressions from <strong>2K to 27K</strong>
-      across six channels, launched the company blog from zero to an average Google position of <strong>6.5</strong>,
-      and shipped <strong>13 viral academic demos</strong> on top of a 170M-paper corpus — one of them carrying
-      55% of all blog traffic by itself.
+      Eight months at Bohrium (DP Technology) I grew total weekly impressions
+      <strong>from 2K to 27K</strong> across six channels, launched the company blog from zero
+      to <strong>average Google position 6.5</strong> with 23K impressions, revived Medium
+      from 20 to <strong>812 presentations per month</strong>, and shipped four interactive demos —
+      the Qingming edition of <em>PhD Graveyard</em> alone pulled roughly 70% of Blog
+      traffic in its first three days.
     </p>
     <div class="contacts reveal d4">
       <a href="mailto:juchen1128@hotmail.com">juchen1128@hotmail.com</a>
@@ -469,13 +519,14 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
       <article class="entry">
         <span class="n">01</span>
         <div>
-          <h3>PhD Graveyard</h3>
+          <h3>PhD Graveyard &mdash; Qingming edition</h3>
           <p class="prose">
-            Ninety-five gravestones for fields of research that quietly died. Global
-            flower-laying via a Cloudflare Worker + KV so anyone could leave a petal.
-            The Qingming edition added burning paper animations and 123 graves;
-            it pulled <strong>2,028 views and 1,315 users</strong> — 55% of all blog traffic — and
-            became the viral tent-pole other demos were built against.
+            Ninety-five gravestones for fields of research that quietly died, with global
+            flower-laying via a Cloudflare Worker &amp; KV so anyone could leave a petal.
+            For Qingming I added burning paper animations and 123 graves, released it into
+            the window where everyone was thinking about death anyway, and in three days it
+            delivered <strong>~70% of Blog traffic</strong> and <strong>~1,200 views / 1,315 unique users</strong>
+            at peak. Everyone who sees it laughs — that was the point.
           </p>
           <a class="try" href="#" data-todo="link">Try live</a>
         </div>
@@ -486,10 +537,10 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         <div>
           <h3>Paper or Bullshit?</h3>
           <p class="prose">
-            Can you tell a real arXiv paper from one an LLM made up? 153 real titles,
-            50 generated, 15-second timer, soft login on round two, every real paper
-            links straight into Bohrium. <strong>203 questions in production</strong>; the trickier
-            ones sit at ~50% accuracy, which is exactly the uncomfortable number we wanted.
+            Can you tell a real arXiv paper from one an LLM made up? 153 real titles against
+            50 generated ones, 15-second timer, soft login on round two, every real paper
+            links straight into Bohrium. <strong>203 questions in production</strong>; the tricky ones
+            hover near 50% accuracy, which is exactly the uncomfortable number we wanted.
           </p>
           <a class="try" href="#" data-todo="link">Try live</a>
         </div>
@@ -500,11 +551,11 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         <div>
           <h3>Research Stock Market</h3>
           <p class="prose">
-            A Bloomberg-terminal-styled visualization of thirty research disciplines
-            as tradable stocks. OHLC candlesticks driven by real Bohrium publication
-            data across a 170M-paper corpus. <strong>Fifty programmatic SEO pages</strong>
-            planned on top, one per discipline, targeting high-volume existential searches
-            like "Is X dying?".
+            A Bloomberg-terminal-styled visualization of thirty research disciplines as
+            tradeable stocks — OHLC candlesticks driven by real Bohrium publication data
+            across a 170M-paper corpus. <strong>Fifty programmatic SEO pages</strong> planned on top,
+            one per discipline, targeting high-volume existential searches like
+            "Is X dying?".
           </p>
           <a class="try" href="#" data-todo="link">Try live</a>
         </div>
@@ -513,28 +564,35 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
       <article class="entry">
         <span class="n">04</span>
         <div>
-          <h3>Conference Roundup Pipeline</h3>
+          <h3>Conference Hub pipeline</h3>
           <p class="prose">
-            A five-skill Claude Code pipeline: OpenReview scraper → PDF fetcher →
-            figure extractor → Bohrium lookup → article writer. For ICLR 2026 it
-            processed <strong>5,356 papers</strong>, selected 53, and produced one hub article
-            that cleared <strong>2,300+ impressions in 48 hours</strong>. Same pipeline now
-            feeds NeurIPS and AAAI.
+            I judged single-paper write-ups would always be long-tail low-traffic, so I
+            designed a conference <em>Hub</em> aggregation page as the actual traffic driver
+            and built the five-Claude-Code-Skill pipeline behind it: OpenReview scraper →
+            PDF fetcher → figure extractor → Bohrium lookup → article writer. ICLR 2026
+            processed <strong>5,356 papers</strong> down to 53 selected; its Hub cleared
+            <strong>2,300+ impressions in 48 hours</strong>. AAAI's Hub has since reached <strong>6,371</strong>.
           </p>
-          <a class="try muted" href="#" data-todo="link">Read the hub article</a>
+          <a class="try muted" href="#" data-todo="link">Read the AAAI hub</a>
         </div>
       </article>
 
       <article class="entry">
         <span class="n">05</span>
         <div>
-          <h3>Blog SEO Engine</h3>
+          <h3>Blog SEO engine + i18n architecture</h3>
           <p class="prose">
             The full stack behind bohrium.com/blog, built from zero: a
-            meta-title/description prompt system, an eight-module article template,
-            a SciencePedia keyword-injection layer, and batch refresh scripts.
-            <strong>Average Google position 6.5</strong>, 23K impressions in three months,
-            tag taxonomy collapsed from 60+ down to nine.
+            meta-title/description prompt system modelled on <em>emergentmind</em>, an
+            eight-module article template, a SciencePedia keyword-injection layer, and
+            batch refresh scripts. When the engineer's generation pipeline proved unstable
+            I took over the visual redesign (Hugo templates + SCSS), ran the Technical SEO
+            audit (JSON-LD, OG tags, canonicals), and eventually led the <strong>i18n architecture
+            migration</strong> — splitting one Hugo site into an English research Blog
+            (<code>/en/blog/</code>) and a Chinese interactive Playground
+            (<code>/playground/</code>), including the multi-site login scheme and 301
+            redirect strategy. Two months after launch: <strong>avg Google position 6.5, 23K
+            impressions</strong>.
           </p>
           <a class="try" href="https://bohrium.com/blog" target="_blank" rel="noopener">Visit the blog</a>
         </div>
@@ -543,13 +601,30 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
       <article class="entry">
         <span class="n">06</span>
         <div>
+          <h3>Medium revival</h3>
+          <p class="prose">
+            Took over Medium when it was running on AI-generated drafts pushing ~20
+            presentations per month. Re-balanced the technical-vs-popular line, got CTO
+            sign-off on the new voice, then built reusable article structures and a rotation
+            of style templates keyed to Medium's distinct audience segments.
+            <strong>812 presentations / month</strong> at peak, <strong>+63% MoM</strong>.
+          </p>
+          <a class="try muted" href="#" data-todo="link">Read on Medium</a>
+        </div>
+      </article>
+
+      <article class="entry">
+        <span class="n">07</span>
+        <div>
           <h3>Three-agent content system</h3>
           <p class="prose">
             Three independent Claude Code agents — <em>visual-brand</em>, <em>write-blog</em>,
             <em>conference-roundup</em> — each with its own persistent knowledge base,
-            collectively orchestrating <strong>95+ custom skills</strong> for content production,
-            SEO optimization, and brand visuals. Auto-memory makes them feel institutional
-            rather than one-shot.
+            collectively orchestrating <strong>29 custom skills across 6 categories</strong>
+            (paper selection, social, blog, SEO, conference pipeline, brand visuals).
+            Auto-memory turns one-shot runs into institutional workflow: pick a paper →
+            write the post → generate the image → schedule the thread — one person, full
+            pipeline.
           </p>
           <a class="try muted" href="#" data-todo="link">Writeup forthcoming</a>
         </div>
@@ -574,18 +649,99 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
           <div class="head">
             <h3>AI Marketing</h3>
             <span class="co">DP Technology · Bohrium</span>
-            <span class="when">2025.09 — 2026.04</span>
+            <span class="when">2025.09 — 2026.05</span>
           </div>
           <p class="prose">
-            Built a full-stack content engine from scratch for an AI-for-Science platform
-            sitting on 170M academic papers. Grew <strong>total weekly impressions from 2K to 27K
-            (13×)</strong> across LinkedIn, X (four accounts), Blog, Medium, and Reddit; launched
-            bohrium.com/blog and brought it to <strong>average Google position 6.5</strong> with 23K
-            impressions in three months; shipped 13 viral academic demos including
-            PhD Graveyard, Paper or Bullshit, and Research Stock Market. Planned
-            50 programmatic-SEO discipline pages on top of Google Trends data, and
-            ran the author-tagging strategy that took LinkedIn from 1.5K to 2K followers
-            (+37%) and X from 450 to 832 (+85%).
+            Joined to find: one X account, one LinkedIn, no SEO, no Blog, no English content
+            system. In week six I led the Nobel Prize integrated-marketing campaign, which
+            peaked at <strong>3,200 daily signups</strong>. From there I built a full-stack content
+            engine from scratch for an AI-for-Science platform sitting on 170M academic
+            papers — a single-person operation across LinkedIn, X (four accounts), Blog,
+            Medium, and Reddit.
+          </p>
+          <p class="prose">
+            I launched bohrium.com/blog from zero, designed the SEO prompt system and
+            8-module article structure, did the visual redesign and Technical SEO audit
+            myself when the engineering pipeline couldn't keep up, and led the i18n
+            architecture migration that split the site into English research Blog and
+            Chinese Playground. I designed the Paper-of-the-Day selection algorithm
+            (five hard gates + author-reachability scoring), built an X auto-reply plugin,
+            a SciencePedia word-card generator, and batch image tools for social + Blog
+            covers. For social growth I ran an author-tagging strategy that moved single-post
+            impressions from &lt;50 to 200–300 routinely, peaking at <strong>2,000+</strong> when authors
+            reshared.
+          </p>
+          <p class="prose">
+            I shipped four interactive demos — <em>PhD Graveyard</em>, <em>Paper or Bullshit</em>,
+            <em>Research Stock Market</em>, and the Qingming edition — and three Claude Code
+            agents orchestrating 29 custom skills. I also revived Medium from 20
+            presentations/month to <strong>812/month (+63% MoM)</strong>, and ran the Discord
+            community hand-to-hand, DMing active users to feed real product-use cases back
+            to the product team.
+          </p>
+
+          <!-- ── Growth figure ── -->
+          <figure class="growth">
+            <svg class="growth-svg" viewBox="0 0 1200 380" role="img" aria-labelledby="growth-title growth-desc">
+              <title id="growth-title">Weekly impressions across Bohrium channels</title>
+              <desc id="growth-desc">Line chart: total weekly impressions rose from under 2K to 27K over 26 weeks, with annotated spikes at the Nobel Prize campaign, conference Hub launch, and the Qingming PhD Graveyard release.</desc>
+
+              <!-- baseline -->
+              <line class="baseline" x1="60" y1="320" x2="1160" y2="320"/>
+
+              <!-- Y axis whisper labels -->
+              <text class="axis-label" x="60" y="66" text-anchor="start">30K</text>
+              <text class="axis-label" x="60" y="194" text-anchor="start">15K</text>
+              <text class="axis-label" x="60" y="314" text-anchor="start">0</text>
+
+              <!-- X axis whisper labels -->
+              <text class="axis-label" x="70"   y="345" text-anchor="middle">Sep '25</text>
+              <text class="axis-label" x="532"  y="345" text-anchor="middle">Jan '26</text>
+              <text class="axis-label" x="1120" y="345" text-anchor="middle">Apr '26</text>
+
+              <!-- area fill -->
+              <path class="area" d="M 70 311 L 112 311 L 154 306 L 196 307 L 238 309 L 280 282 L 322 297 L 364 310 L 406 311 L 448 302 L 490 297 L 532 297 L 574 301 L 616 302 L 658 277 L 700 258 L 742 238 L 784 242 L 826 303 L 868 249 L 910 239 L 952 134 L 994 234 L 1036 129 L 1078 138 L 1120 86 L 1120 320 L 70 320 Z"/>
+
+              <!-- line -->
+              <path class="line" d="M 70 311 L 112 311 L 154 306 L 196 307 L 238 309 L 280 282 L 322 297 L 364 310 L 406 311 L 448 302 L 490 297 L 532 297 L 574 301 L 616 302 L 658 277 L 700 258 L 742 238 L 784 242 L 826 303 L 868 249 L 910 239 L 952 134 L 994 234 L 1036 129 L 1078 138 L 1120 86"/>
+
+              <!-- Annotation 1: Nobel at W06 -->
+              <circle class="dot" cx="280" cy="282" r="3.5"/>
+              <line class="leader" x1="280" y1="278" x2="280" y2="205"/>
+              <text class="annot-label"  x="280" y="190" text-anchor="middle">Nobel Prize campaign</text>
+              <text class="annot-sub"    x="280" y="204" text-anchor="middle">3,200 peak daily signups</text>
+
+              <!-- Annotation 2: Conference Hub at W17 -->
+              <circle class="dot" cx="742" cy="238" r="3.5"/>
+              <line class="leader" x1="742" y1="234" x2="742" y2="155"/>
+              <text class="annot-label" x="742" y="140" text-anchor="middle">Conference Hub ships</text>
+              <text class="annot-sub"   x="742" y="154" text-anchor="middle">AAAI Hub 6,371 · ICLR 2,300 in 48h</text>
+
+              <!-- Annotation 3: Qingming at W24 -->
+              <circle class="dot" cx="1036" cy="129" r="3.5"/>
+              <line class="leader" x1="1036" y1="125" x2="1036" y2="55"/>
+              <text class="annot-label" x="1036" y="40" text-anchor="middle">Qingming · PhD Graveyard</text>
+              <text class="annot-sub"   x="1036" y="54" text-anchor="middle">~70% of Blog traffic in 3 days</text>
+
+              <!-- End cap: 27K -->
+              <circle class="dot" cx="1120" cy="86" r="4.5"/>
+              <text class="endcap" x="1130" y="82" text-anchor="start">27K / wk</text>
+            </svg>
+            <figcaption class="figcaption">
+              <span class="fig-tag">Fig. 1</span>
+              Total weekly impressions across LinkedIn, X (four accounts), and Blog — from
+              week one of my tenure to week twenty-six. Annotations mark the moments that
+              moved the line; the shape is more important than the exact values.
+            </figcaption>
+          </figure>
+
+          <p class="prose">
+            <strong>Full-funnel numbers, eight months:</strong> weekly impressions
+            <strong>2K → 27K (13×)</strong> · weekly interactions <strong>60 → 225 (4×)</strong> ·
+            LinkedIn <strong>1.5K → 2K+ (+37%)</strong> · X <strong>450 → 832 (+85%)</strong> ·
+            Blog <strong>avg Google position 6.5, 23K impressions</strong> in two months · Medium
+            <strong>20 → 812 presentations/month (+63% MoM)</strong> · Blog became the largest
+            single traffic source, <strong>55–60% of the total</strong>.
           </p>
         </div>
       </article>
@@ -595,15 +751,19 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         <div>
           <div class="head">
             <h3>AI Content Marketing &amp; Strategy Consultant</h3>
-            <span class="co">Inception AI · RunComfy</span>
+            <span class="co">Inception AI · RunComfy (ComfyUI platform)</span>
             <span class="when">2024.12 — 2025.07</span>
           </div>
           <p class="prose">
-            Wrote and optimized <strong>100+ ComfyUI workflow pages</strong>, 90% of which ranked on
-            Google page one — traffic grew <strong>128% month-over-month, 350K to 800K</strong>.
-            Built an n8n-automated LoRA screening system monitoring 20+ model platforms
-            at a steady 20+ pages/day. Launched creator collaborations with OpenArt
-            and Civitai influencers that moved LinkedIn engagement +35% and X +27%.
+            Built the ComfyUI-workflow and LoRA screening system, sifting 800+ workflows
+            across 20+ platforms for high-value directions. With an n8n pipeline and a
+            reusable prompt library I hit <strong>20+ pages per day</strong> steady output.
+            <strong>100+ pages</strong> individually optimized, <strong>90% of core keywords on Google
+            page one</strong>, traffic <strong>+128% MoM (350K → 800K)</strong>. Launched creator
+            co-promotions with OpenArt and Civitai influencers covering tens of thousands
+            of ComfyUI users (LinkedIn engagement +35%, X +27%). Tested Kling / Veo3 /
+            Seedance / Hailuo / Runway, designed a 20-VFX &amp; 16-camera-move standardization
+            system, and fed bug reports + suggestions back to the model teams.
           </p>
         </div>
       </article>
@@ -613,17 +773,53 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         <div>
           <div class="head">
             <h3>Strategic Advisor, CEO Office</h3>
-            <span class="co">KE Holdings · Beike (NYSE)</span>
+            <span class="co">KE Holdings · Beike (NYSE: BEKE)</span>
             <span class="when">2025.02 — 2025.09</span>
           </div>
           <p class="prose">
-            Synthesized 100+ books and papers across history, philosophy, and culture
-            into actionable strategy for overseas market expansion. Delivered
-            bi-monthly executive briefings translating academic frameworks into
-            competitive intelligence for C-level leadership.
+            Distilled complex insights from 100+ Chinese and English books and academic
+            papers into actionable strategy for real-estate market growth and overseas
+            expansion. Two executive-briefing sessions per month, translating academic
+            concepts into decision-support material for C-level leadership.
           </p>
         </div>
       </article>
+
+      <div class="earlier">
+        <div class="small-meta">Earlier</div>
+        <div class="earlier-list">
+
+          <div class="earlier-row">
+            <span class="n">04</span>
+            <div>
+              <h4>AI prompt-system builder · Talegine (故事引擎)</h4>
+              <p class="bits">
+                Implemented a six-dimension narrative-element extraction strategy grounded
+                in drama theory and user psychology, <strong>cutting character-OOC incidents by
+                60%</strong>. Built an RAG content-extraction method for fan-fiction,
+                producing <strong>80+ character cards</strong> + evaluation benchmarks;
+                engagement <strong>+25%</strong>.
+              </p>
+            </div>
+            <span class="when">2024.05 — 2024.08</span>
+          </div>
+
+          <div class="earlier-row">
+            <span class="n">05</span>
+            <div>
+              <h4>AI content + tool bridging · Intel Research (China)</h4>
+              <p class="bits">
+                Produced visual content with Midjourney + Runway for internal teams, set up
+                the generative-AI content-production workflow, and bridged tools to
+                engineers — researching GitHub Copilot, training programmers on adoption,
+                and driving department-wide AI-tool integration.
+              </p>
+            </div>
+            <span class="when">2023.10 — 2024.06</span>
+          </div>
+
+        </div>
+      </div>
 
     </div>
   </section>
@@ -639,51 +835,92 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
     <dl class="stack-list">
       <div class="stack-row">
         <dt>AI &amp; automation</dt>
-        <dd>Claude Code (power user, 95+ custom skills) · Prompt engineering · LLM pipelines · Gemini API · ComfyUI · n8n</dd>
+        <dd>Claude Code (power user, 29 custom skills · 3 agent knowledge bases) · Prompt engineering · LLM pipelines · Gemini API · ComfyUI · n8n</dd>
       </div>
       <div class="stack-row">
         <dt>Marketing &amp; SEO</dt>
-        <dd>Content strategy · Technical &amp; programmatic SEO · Google Search Console · Google Analytics · Social growth across LinkedIn, X, Medium, Reddit</dd>
+        <dd>Content strategy · Technical &amp; programmatic SEO · Google Search Console · Google Analytics · Semrush · Social growth across LinkedIn, X, Medium, Reddit</dd>
       </div>
       <div class="stack-row">
         <dt>Engineering</dt>
-        <dd>Hugo &amp; static site architecture · HTML / CSS / JS · Python · Cloudflare Workers &amp; KV · Git / GitLab CI/CD · Docker</dd>
+        <dd>Hugo &amp; static site architecture · SCSS / HTML / CSS / JS · Python · Cloudflare Workers &amp; KV · Git &amp; GitLab CI/CD · Docker</dd>
       </div>
       <div class="stack-row">
         <dt>Design &amp; craft</dt>
-        <dd>Figma · Photoshop · Premiere · Academic writing · Bilingual EN / 中文 (TOEFL 105)</dd>
+        <dd>Figma · Photoshop · Premiere · CapCut · Academic writing · Bilingual EN / 中文 (TOEFL 105)</dd>
       </div>
     </dl>
   </section>
 
-  <!-- ── §04 Formation ── -->
-  <section id="formation" class="block formation">
+  <!-- ── §04 Elsewhere ── -->
+  <section id="elsewhere" class="block">
     <div class="section-meta">
       <span class="num">§ 04</span>
+      <span class="sep">·</span>
+      <span>Elsewhere</span>
+    </div>
+
+    <div class="elsewhere-list">
+
+      <article class="else-entry">
+        <span class="n">01</span>
+        <div>
+          <h4>Women's football community · Xiaohongshu</h4>
+          <div class="when">2023.07 — 2024.06 &nbsp;·&nbsp; founder &amp; operator</div>
+          <p>
+            Started from one viral post (<strong>14K+ reads</strong>), recruited <strong>150+ members</strong>
+            in two weeks, kept group activity above <strong>80%</strong>. Landed three commercial
+            partnerships; featured in AFP and <em>聚光 (Spotlight)</em>.
+          </p>
+        </div>
+      </article>
+
+      <article class="else-entry">
+        <span class="n">02</span>
+        <div>
+          <h4>Writing as a long-tail practice · Weibo &amp; Lofter</h4>
+          <div class="when">2010 — present &nbsp;·&nbsp; one-person brand</div>
+          <p>
+            I've been a known writer inside certain literary circles since high school.
+            In 2020 I took a Weibo audience of ~<strong>8,000 active followers</strong> and converted it
+            into <strong>¥10,000+ in two weeks</strong> at a <strong>3.5% conversion rate</strong> — my first
+            proof that I could move people at scale. Everything marketing-shaped I've
+            done since is a variation on that same instinct.
+          </p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ── §05 Formation ── -->
+  <section id="formation" class="block formation">
+    <div class="section-meta">
+      <span class="num">§ 05</span>
       <span class="sep">·</span>
       <span>Formation</span>
     </div>
 
     <ol>
       <li class="edu">
-        <span class="year">2019 — 2026</span>
+        <span class="year">2019 — 2025</span>
         <div>
           <h4>Ph.D., Analytic Philosophy</h4>
-          <p>Renmin University of China. Language philosophy and emotion functionalism. Two CSSCI publications; two translated philosophy books (200K+ words).</p>
+          <p>Renmin University of China. Language philosophy and emotion functionalism. Two translated philosophy books (200K+ words); two CSSCI publications; one international conference paper.</p>
         </div>
       </li>
       <li class="edu">
         <span class="year">2021 — 2022</span>
         <div>
           <h4>Visiting Scholar</h4>
-          <p>Cornell University, Department of Philosophy. Moral psychology with Kate Manne and Shaun Nichols.</p>
+          <p>Cornell University, Department of Philosophy. Moral psychology and bodily-discrimination theory, with Kate Manne and Shaun Nichols.</p>
         </div>
       </li>
       <li class="edu">
         <span class="year">2016 — 2019</span>
         <div>
           <h4>M.A., Analytic Philosophy</h4>
-          <p>Renmin University of China. National Scholarship 2018; Guanghua Scholarship.</p>
+          <p>Renmin University of China. National Scholarship (2018); Guanghua Scholarship.</p>
         </div>
       </li>
       <li class="edu">
@@ -703,6 +940,11 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
   <h2 class="cta">
     Let's talk. <a href="mailto:juchen1128@hotmail.com">juchen1128@hotmail.com</a>
   </h2>
+  <div class="contact-details">
+    <span>+86 188 1308 5783</span>
+    <span class="sep">·</span>
+    <span>北京 · 海淀</span>
+  </div>
   <div class="colophon">
     <div class="links">
       <a href="mailto:juchen1128@hotmail.com">Email</a>
