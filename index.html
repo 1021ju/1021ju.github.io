@@ -330,6 +330,31 @@ section.block:last-of-type { border-bottom: none; }
 .growth-svg .area { fill: var(--accent); fill-opacity: 0.08; }
 .growth-svg .baseline { stroke: var(--rule); stroke-width: 1; }
 .growth-svg .endcap { fill: var(--accent); font-family: var(--body); font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.growth-wrap { position: relative; }
+.growth-svg { cursor: crosshair; }
+.growth-svg .crosshair { stroke: var(--ink-xs); stroke-width: 1; stroke-dasharray: 2 3; pointer-events: none; transition: opacity 120ms ease; }
+.growth-svg .hover-dot { fill: var(--paper); stroke: var(--accent); stroke-width: 2; pointer-events: none; transition: opacity 120ms ease; }
+.growth-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 8px 12px;
+  border-radius: 2px;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, calc(-100% - 12px));
+  transition: opacity 120ms ease;
+  z-index: 5;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 4px 14px oklch(20% 0.02 65 / 0.15);
+}
+.growth-tooltip.active { opacity: 1; }
+.growth-tooltip .tt-week { font-family: var(--display); font-size: 0.875rem; margin-bottom: 2px; }
+.growth-tooltip .tt-val { color: oklch(90% 0.015 80); }
+.growth-tooltip .tt-note { color: var(--mark); font-size: 0.75rem; margin-top: 3px; font-style: italic; }
 .figcaption {
   font-size: 0.875rem;
   line-height: 1.55;
@@ -486,7 +511,7 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
   <!-- ── Hero ── -->
   <section class="hero">
     <p class="kicker reveal">
-      <em>Ju Chen</em> &nbsp;·&nbsp; AI marketer &nbsp;·&nbsp; Philosophy PhD (Cornell / Renmin) &nbsp;·&nbsp; writes in English &amp; 中文
+      <em>Ju Chen</em> &nbsp;·&nbsp; AI marketer &nbsp;·&nbsp; Philosophy PhD (Cornell / Renmin) &nbsp;·&nbsp; writes in English and Mandarin
     </p>
     <h1 class="reveal d2">
       I turn research into <span class="mk">attention</span> — usually by building something weird enough to ship.
@@ -501,7 +526,7 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
     </p>
     <div class="contacts reveal d4">
       <a href="mailto:juchen1128@hotmail.com">juchen1128@hotmail.com</a>
-      <a href="https://www.linkedin.com/in/ju-chen-cornell/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/ju-chen-196a012b9/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/1021ju" target="_blank" rel="noopener">GitHub</a>
     </div>
   </section>
@@ -528,7 +553,7 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
             delivered <strong>~70% of Blog traffic</strong> and <strong>~1,200 views / 1,315 unique users</strong>
             at peak. Everyone who sees it laughs — that was the point.
           </p>
-          <a class="try" href="#" data-todo="link">Try live</a>
+          <a class="try" href="https://www.bohrium.com/blog/30-day-sprint/phd-graveyard-qingming/play.html" target="_blank" rel="noopener">Try live</a>
         </div>
       </article>
 
@@ -542,7 +567,7 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
             links straight into Bohrium. <strong>203 questions in production</strong>; the tricky ones
             hover near 50% accuracy, which is exactly the uncomfortable number we wanted.
           </p>
-          <a class="try" href="#" data-todo="link">Try live</a>
+          <a class="try" href="https://www.bohrium.com/blog/30-day-sprint/paper-or-bullshit/play.html" target="_blank" rel="noopener">Try live</a>
         </div>
       </article>
 
@@ -557,7 +582,7 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
             one per discipline, targeting high-volume existential searches like
             "Is X dying?".
           </p>
-          <a class="try" href="#" data-todo="link">Try live</a>
+          <a class="try" href="https://www.bohrium.com/blog/30-day-sprint/research-stock-market/play.html" target="_blank" rel="noopener">Try live</a>
         </div>
       </article>
 
@@ -573,7 +598,7 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
             processed <strong>5,356 papers</strong> down to 53 selected; its Hub cleared
             <strong>2,300+ impressions in 48 hours</strong>. AAAI's Hub has since reached <strong>6,371</strong>.
           </p>
-          <a class="try muted" href="#" data-todo="link">Read the AAAI hub</a>
+          <a class="try muted" href="https://www.bohrium.com/blog/research-notes/aaai-2026-accepted-papers-highlights/" target="_blank" rel="noopener">Read the AAAI hub</a>
         </div>
       </article>
 
@@ -680,58 +705,60 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
             to the product team.
           </p>
 
-          <!-- ── Growth figure ── -->
+          <!-- ── Growth figure (interactive) ── -->
           <figure class="growth">
-            <svg class="growth-svg" viewBox="0 0 1200 380" role="img" aria-labelledby="growth-title growth-desc">
-              <title id="growth-title">Weekly impressions across Bohrium channels</title>
-              <desc id="growth-desc">Line chart: total weekly impressions rose from under 2K to 27K over 26 weeks, with annotated spikes at the Nobel Prize campaign, conference Hub launch, and the Qingming PhD Graveyard release.</desc>
+            <div class="growth-wrap">
+              <svg class="growth-svg" viewBox="0 0 1200 380" role="img" aria-labelledby="growth-title growth-desc">
+                <title id="growth-title">Weekly impressions across Bohrium channels</title>
+                <desc id="growth-desc">Interactive line chart — hover to read any week. Total weekly impressions rose from roughly 1K to 27K between October 2025 and April 2026, with spikes at the Conference Hub launch and the Qingming edition of PhD Graveyard.</desc>
 
-              <!-- baseline -->
-              <line class="baseline" x1="60" y1="320" x2="1160" y2="320"/>
+                <!-- baseline -->
+                <line class="baseline" x1="60" y1="320" x2="1160" y2="320"/>
 
-              <!-- Y axis whisper labels -->
-              <text class="axis-label" x="60" y="66" text-anchor="start">30K</text>
-              <text class="axis-label" x="60" y="194" text-anchor="start">15K</text>
-              <text class="axis-label" x="60" y="314" text-anchor="start">0</text>
+                <!-- Y axis whisper labels -->
+                <text class="axis-label" x="60" y="66"  text-anchor="start">30K</text>
+                <text class="axis-label" x="60" y="194" text-anchor="start">15K</text>
+                <text class="axis-label" x="60" y="314" text-anchor="start">0</text>
 
-              <!-- X axis whisper labels -->
-              <text class="axis-label" x="70"   y="345" text-anchor="middle">Sep '25</text>
-              <text class="axis-label" x="532"  y="345" text-anchor="middle">Jan '26</text>
-              <text class="axis-label" x="1120" y="345" text-anchor="middle">Apr '26</text>
+                <!-- X axis whisper labels -->
+                <text class="axis-label" x="70"   y="345" text-anchor="middle">Oct '25</text>
+                <text class="axis-label" x="532"  y="345" text-anchor="middle">Jan '26</text>
+                <text class="axis-label" x="1120" y="345" text-anchor="middle">Apr '26</text>
 
-              <!-- area fill -->
-              <path class="area" d="M 70 311 L 112 311 L 154 306 L 196 307 L 238 309 L 280 282 L 322 297 L 364 310 L 406 311 L 448 302 L 490 297 L 532 297 L 574 301 L 616 302 L 658 277 L 700 258 L 742 238 L 784 242 L 826 303 L 868 249 L 910 239 L 952 134 L 994 234 L 1036 129 L 1078 138 L 1120 86 L 1120 320 L 70 320 Z"/>
+                <!-- area fill -->
+                <path class="area" d="M 70 311 L 112 311 L 154 306 L 196 307 L 238 309 L 280 282 L 322 297 L 364 310 L 406 311 L 448 302 L 490 297 L 532 297 L 574 301 L 616 302 L 658 277 L 700 258 L 742 238 L 784 242 L 826 303 L 868 249 L 910 239 L 952 134 L 994 234 L 1036 129 L 1078 138 L 1120 86 L 1120 320 L 70 320 Z"/>
 
-              <!-- line -->
-              <path class="line" d="M 70 311 L 112 311 L 154 306 L 196 307 L 238 309 L 280 282 L 322 297 L 364 310 L 406 311 L 448 302 L 490 297 L 532 297 L 574 301 L 616 302 L 658 277 L 700 258 L 742 238 L 784 242 L 826 303 L 868 249 L 910 239 L 952 134 L 994 234 L 1036 129 L 1078 138 L 1120 86"/>
+                <!-- line -->
+                <path class="line" d="M 70 311 L 112 311 L 154 306 L 196 307 L 238 309 L 280 282 L 322 297 L 364 310 L 406 311 L 448 302 L 490 297 L 532 297 L 574 301 L 616 302 L 658 277 L 700 258 L 742 238 L 784 242 L 826 303 L 868 249 L 910 239 L 952 134 L 994 234 L 1036 129 L 1078 138 L 1120 86"/>
 
-              <!-- Annotation 1: Nobel at W06 -->
-              <circle class="dot" cx="280" cy="282" r="3.5"/>
-              <line class="leader" x1="280" y1="278" x2="280" y2="205"/>
-              <text class="annot-label"  x="280" y="190" text-anchor="middle">Nobel Prize campaign</text>
-              <text class="annot-sub"    x="280" y="204" text-anchor="middle">3,200 peak daily signups</text>
+                <!-- Static annotations — the two moments worth marking on the chart itself -->
+                <circle class="dot" cx="742" cy="238" r="3.5"/>
+                <line class="leader" x1="742" y1="234" x2="742" y2="155"/>
+                <text class="annot-label" x="742" y="140" text-anchor="middle">Conference Hub ships</text>
+                <text class="annot-sub"   x="742" y="154" text-anchor="middle">AAAI 6,371 · ICLR 2,300 in 48h</text>
 
-              <!-- Annotation 2: Conference Hub at W17 -->
-              <circle class="dot" cx="742" cy="238" r="3.5"/>
-              <line class="leader" x1="742" y1="234" x2="742" y2="155"/>
-              <text class="annot-label" x="742" y="140" text-anchor="middle">Conference Hub ships</text>
-              <text class="annot-sub"   x="742" y="154" text-anchor="middle">AAAI Hub 6,371 · ICLR 2,300 in 48h</text>
+                <circle class="dot" cx="1036" cy="129" r="3.5"/>
+                <line class="leader" x1="1036" y1="125" x2="1036" y2="55"/>
+                <text class="annot-label" x="1036" y="40" text-anchor="middle">Qingming · PhD Graveyard</text>
+                <text class="annot-sub"   x="1036" y="54" text-anchor="middle">~70% of Blog traffic in 3 days</text>
 
-              <!-- Annotation 3: Qingming at W24 -->
-              <circle class="dot" cx="1036" cy="129" r="3.5"/>
-              <line class="leader" x1="1036" y1="125" x2="1036" y2="55"/>
-              <text class="annot-label" x="1036" y="40" text-anchor="middle">Qingming · PhD Graveyard</text>
-              <text class="annot-sub"   x="1036" y="54" text-anchor="middle">~70% of Blog traffic in 3 days</text>
+                <!-- End cap: 27K -->
+                <circle class="dot" cx="1120" cy="86" r="4.5"/>
+                <text class="endcap" x="1130" y="82" text-anchor="start">27K / wk</text>
 
-              <!-- End cap: 27K -->
-              <circle class="dot" cx="1120" cy="86" r="4.5"/>
-              <text class="endcap" x="1130" y="82" text-anchor="start">27K / wk</text>
-            </svg>
+                <!-- Hover crosshair + dot (hidden until pointer enters) -->
+                <line class="crosshair" x1="0" y1="60" x2="0" y2="320" style="opacity:0"/>
+                <circle class="hover-dot" cx="0" cy="0" r="5" style="opacity:0"/>
+              </svg>
+              <div class="growth-tooltip" role="tooltip" aria-hidden="true"></div>
+            </div>
             <figcaption class="figcaption">
               <span class="fig-tag">Fig. 1</span>
-              Total weekly impressions across LinkedIn, X (four accounts), and Blog — from
-              week one of my tenure to week twenty-six. Annotations mark the moments that
-              moved the line; the shape is more important than the exact values.
+              Total weekly impressions across LinkedIn, X (four accounts), and Blog —
+              October 2025 through April 2026. Hover any point to read the week's total.
+              Two chart-level annotations mark the moments that reshaped the curve; the
+              Nobel-Prize integrated campaign (3,200 peak daily signups) sat just before
+              weekly tracking began.
             </figcaption>
           </figure>
 
@@ -792,7 +819,7 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
           <div class="earlier-row">
             <span class="n">04</span>
             <div>
-              <h4>AI prompt-system builder · Talegine (故事引擎)</h4>
+              <h4>AI prompt-system builder · Talegine</h4>
               <p class="bits">
                 Implemented a six-dimension narrative-element extraction strategy grounded
                 in drama theory and user psychology, <strong>cutting character-OOC incidents by
@@ -847,7 +874,7 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
       </div>
       <div class="stack-row">
         <dt>Design &amp; craft</dt>
-        <dd>Figma · Photoshop · Premiere · CapCut · Academic writing · Bilingual EN / 中文 (TOEFL 105)</dd>
+        <dd>Figma · Photoshop · Premiere · CapCut · Academic writing · Bilingual English / Mandarin (TOEFL 105)</dd>
       </div>
     </dl>
   </section>
@@ -870,7 +897,7 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
           <p>
             Started from one viral post (<strong>14K+ reads</strong>), recruited <strong>150+ members</strong>
             in two weeks, kept group activity above <strong>80%</strong>. Landed three commercial
-            partnerships; featured in AFP and <em>聚光 (Spotlight)</em>.
+            partnerships; featured in AFP and <em>Spotlight</em> magazine.
           </p>
         </div>
       </article>
@@ -943,17 +970,108 @@ footer .colophon .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
   <div class="contact-details">
     <span>+86 188 1308 5783</span>
     <span class="sep">·</span>
-    <span>北京 · 海淀</span>
+    <span>Beijing · Haidian</span>
   </div>
   <div class="colophon">
     <div class="links">
       <a href="mailto:juchen1128@hotmail.com">Email</a>
-      <a href="https://www.linkedin.com/in/ju-chen-cornell/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/ju-chen-196a012b9/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/1021ju" target="_blank" rel="noopener">GitHub</a>
     </div>
     <div>Typeset in Young Serif &amp; Schibsted Grotesk.</div>
   </div>
 </footer>
+
+<script>
+(() => {
+  const weeks = [
+    {w:1,  x:70,   y:311, total:1100,  date:"Oct 20 – 26",    note:""},
+    {w:2,  x:112,  y:311, total:1000,  date:"Oct 27 – Nov 2", note:""},
+    {w:3,  x:154,  y:306, total:1600,  date:"Nov 3 – 9",      note:""},
+    {w:4,  x:196,  y:307, total:1500,  date:"Nov 10 – 16",    note:""},
+    {w:5,  x:238,  y:309, total:1300,  date:"Nov 17 – 23",    note:""},
+    {w:6,  x:280,  y:282, total:4400,  date:"Nov 24 – 30",    note:""},
+    {w:7,  x:322,  y:297, total:2600,  date:"Dec 1 – 7",      note:""},
+    {w:8,  x:364,  y:310, total:1200,  date:"Dec 8 – 14",     note:""},
+    {w:9,  x:406,  y:311, total:1100,  date:"Dec 15 – 21",    note:""},
+    {w:10, x:448,  y:302, total:2100,  date:"Dec 22 – 28",    note:""},
+    {w:11, x:490,  y:297, total:2700,  date:"Dec 29 – Jan 4", note:""},
+    {w:12, x:532,  y:297, total:2700,  date:"Jan 5 – 11",     note:""},
+    {w:13, x:574,  y:301, total:2200,  date:"Jan 12 – 18",    note:""},
+    {w:14, x:616,  y:302, total:2100,  date:"Jan 19 – 25",    note:""},
+    {w:15, x:658,  y:277, total:5000,  date:"Jan 26 – Feb 1", note:""},
+    {w:16, x:700,  y:258, total:7100,  date:"Feb 2 – 8",      note:""},
+    {w:17, x:742,  y:238, total:9500,  date:"Feb 9 – 15",     note:"Conference Hub pipeline ships"},
+    {w:18, x:784,  y:242, total:9000,  date:"Feb 16 – 22",    note:""},
+    {w:19, x:826,  y:303, total:1950,  date:"Feb 23 – Mar 1", note:""},
+    {w:20, x:868,  y:249, total:8200,  date:"Mar 2 – 8",      note:""},
+    {w:21, x:910,  y:239, total:9300,  date:"Mar 9 – 15",     note:""},
+    {w:22, x:952,  y:134, total:21400, date:"Mar 16 – 22",    note:"Research Stock Market goes viral"},
+    {w:23, x:994,  y:234, total:9900,  date:"Mar 23 – 29",    note:""},
+    {w:24, x:1036, y:129, total:22000, date:"Mar 30 – Apr 5", note:"Qingming · PhD Graveyard launches"},
+    {w:25, x:1078, y:138, total:21000, date:"Apr 6 – 12",     note:""},
+    {w:26, x:1120, y:86,  total:27000, date:"Apr 13 – 17",    note:"All-time high"}
+  ];
+
+  const svg = document.querySelector('.growth-svg');
+  if (!svg) return;
+  const wrap = svg.closest('.growth-wrap');
+  const tooltip = wrap.querySelector('.growth-tooltip');
+  const crosshair = svg.querySelector('.crosshair');
+  const hoverDot = svg.querySelector('.hover-dot');
+  const pt = svg.createSVGPoint();
+
+  function nearest(svgX) {
+    let best = weeks[0], bestDist = Infinity;
+    for (const w of weeks) {
+      const d = Math.abs(w.x - svgX);
+      if (d < bestDist) { bestDist = d; best = w; }
+    }
+    return best;
+  }
+
+  function show(evt) {
+    pt.x = evt.clientX; pt.y = evt.clientY;
+    const ctm = svg.getScreenCTM();
+    if (!ctm) return;
+    const p = pt.matrixTransform(ctm.inverse());
+    // Only react when pointer is within the plotting band (x 60–1160)
+    if (p.x < 60 || p.x > 1160) { hide(); return; }
+    const wk = nearest(p.x);
+    crosshair.setAttribute('x1', wk.x);
+    crosshair.setAttribute('x2', wk.x);
+    crosshair.style.opacity = 1;
+    hoverDot.setAttribute('cx', wk.x);
+    hoverDot.setAttribute('cy', wk.y);
+    hoverDot.style.opacity = 1;
+    const sb = svg.getBoundingClientRect();
+    const wb = wrap.getBoundingClientRect();
+    const sx = wk.x / 1200 * sb.width + (sb.left - wb.left);
+    const sy = wk.y / 380  * sb.height + (sb.top  - wb.top);
+    tooltip.style.left = sx + 'px';
+    tooltip.style.top  = sy + 'px';
+    tooltip.innerHTML =
+      '<div class="tt-week">W' + String(wk.w).padStart(2,'0') + ' · ' + wk.date + '</div>' +
+      '<div class="tt-val">~' + wk.total.toLocaleString() + ' impressions</div>' +
+      (wk.note ? '<div class="tt-note">' + wk.note + '</div>' : '');
+    tooltip.classList.add('active');
+  }
+
+  function hide() {
+    crosshair.style.opacity = 0;
+    hoverDot.style.opacity = 0;
+    tooltip.classList.remove('active');
+  }
+
+  svg.addEventListener('pointerenter', show);
+  svg.addEventListener('pointermove', show);
+  svg.addEventListener('pointerleave', hide);
+  // Touch: also react, but hide on tap-elsewhere
+  document.addEventListener('pointerdown', (e) => {
+    if (!svg.contains(e.target)) hide();
+  });
+})();
+</script>
 
 </body>
 </html>
