@@ -404,75 +404,6 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
   font-size: 0.76rem;
   color: var(--ink-xs);
 }
-.case-covers {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--s-4);
-  margin: var(--s-7) 0 var(--s-5);
-}
-.case-cover {
-  position: relative;
-  min-height: 180px;
-  padding: var(--s-4);
-  border: 1px solid var(--rule);
-  overflow: hidden;
-  background:
-    linear-gradient(180deg, oklch(98.3% 0.002 95 / 0.98), oklch(96.5% 0.003 94 / 0.95)),
-    var(--paper);
-}
-.case-cover::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 18%, oklch(88% 0.016 236 / 0.10), transparent 0 22%),
-    linear-gradient(130deg, transparent 0 60%, oklch(28% 0.008 255 / 0.06) 60% 61%, transparent 61%),
-    linear-gradient(0deg, transparent 0 76%, oklch(28% 0.008 255 / 0.05) 76% 76.6%, transparent 76.6%);
-}
-.case-cover:nth-child(2)::before {
-  background:
-    radial-gradient(circle at 72% 26%, oklch(92% 0.010 84 / 0.08), transparent 0 24%),
-    linear-gradient(90deg, transparent 0 68%, oklch(28% 0.008 255 / 0.06) 68% 68.8%, transparent 68.8%),
-    linear-gradient(180deg, transparent 0 40%, oklch(28% 0.008 255 / 0.05) 40% 40.7%, transparent 40.7%);
-}
-.case-cover:nth-child(3)::before {
-  background:
-    radial-gradient(circle at 34% 68%, oklch(88% 0.016 238 / 0.09), transparent 0 22%),
-    linear-gradient(35deg, transparent 0 54%, oklch(28% 0.008 255 / 0.06) 54% 54.8%, transparent 54.8%),
-    linear-gradient(180deg, transparent 0 22%, oklch(28% 0.008 255 / 0.05) 22% 22.6%, transparent 22.6%);
-}
-.case-cover > * { position: relative; z-index: 1; }
-.case-cover .cover-no {
-  display: inline-block;
-  font-size: 0.68rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-xs);
-  margin-bottom: var(--s-5);
-}
-.case-cover h4 {
-  font-family: var(--display);
-  font-size: 1.2rem;
-  line-height: 1.05;
-  font-weight: 400;
-  color: var(--ink);
-  max-width: 10ch;
-  margin-bottom: var(--s-3);
-}
-.case-cover p {
-  font-size: 0.8rem;
-  line-height: 1.55;
-  color: var(--ink-soft);
-  max-width: 22ch;
-}
-.case-cover .cover-meta {
-  margin-top: var(--s-5);
-  padding-top: var(--s-3);
-  border-top: 1px solid var(--rule-soft);
-  font-size: 0.72rem;
-  color: var(--ink-xs);
-}
-
 /* ── Opener: playable iframe ────────────────────────────── */
 .opener {
   position: relative;
@@ -1199,7 +1130,6 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
   .proof-strip { grid-template-columns: 1fr 1fr; gap: var(--s-5) var(--s-4); }
   .atlas-grid { grid-template-columns: 1fr; }
   .atlas-map { min-height: 240px; }
-  .case-covers { grid-template-columns: 1fr; }
   .opener { padding: var(--s-6) 0; margin: var(--s-6) 0 var(--s-8); }
   .opener-layout { grid-template-columns: 1fr; }
   .opener-head { position: static; padding: var(--s-4); }
@@ -1503,27 +1433,6 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         stack so one person can keep it all running. Here they are in that order.
       </p>
     </div>
-    <div class="case-covers" aria-hidden="true">
-      <figure class="case-cover">
-        <span class="cover-no">Case file 01</span>
-        <h4>PhD Graveyard</h4>
-        <p>Ritual, timing, memory, and a joke people could not resist forwarding.</p>
-        <div class="cover-meta">qingming / interactive / shared state</div>
-      </figure>
-      <figure class="case-cover">
-        <span class="cover-no">Case file 02</span>
-        <h4>Conference Hub</h4>
-        <p>From chaos to index: a pipeline that turns thousands of papers into one destination.</p>
-        <div class="cover-meta">automation / triage / aggregation</div>
-      </figure>
-      <figure class="case-cover">
-        <span class="cover-no">Case file 03</span>
-        <h4>Research NASDAQ</h4>
-        <p>A speculative market for disciplines, designed to make scientific trends legible.</p>
-        <div class="cover-meta">dataviz / SEO / narrative framing</div>
-      </figure>
-    </div>
-
     <div class="playbook">
 
       <article class="pb-entry">
