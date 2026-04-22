@@ -27,8 +27,8 @@
   --ink-xs:   oklch(58% 0.015 65);
   --rule:     oklch(82% 0.014 80);
   --rule-soft:oklch(88% 0.012 80);
-  --accent:   oklch(34% 0.115 262);
-  --accent-2: oklch(52% 0.105 262);
+  --accent:   oklch(45% 0.20 142);
+  --accent-2: oklch(58% 0.16 142);
   --mark:     oklch(92% 0.095 88);
 
   --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
@@ -49,7 +49,13 @@ body {
   font-feature-settings: "ss01", "cv11", "onum";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background 700ms ease;
 }
+/* ── Chapter paper tints — warm cream with whispers of green ── */
+body[data-chapter="ch1"] { background: oklch(95.5% 0.018 100); }  /* warmer, faintly green-yellow */
+body[data-chapter="ch2"] { background: oklch(96.5% 0.014 120); }  /* cooler, faintly mint */
+body[data-chapter="ch3"] { background: oklch(94.5% 0.020 90);  }  /* warmer stone */
+body[data-chapter="now"] { background: oklch(96%   0.012 95);  }  /* base */
 ::selection { background: var(--mark); color: var(--ink); }
 
 a {
@@ -63,6 +69,39 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
 
 .wrap { max-width: 760px; margin: 0 auto; padding: 0 var(--s-5); }
 .wrap-wide { max-width: 1080px; margin: 0 auto; padding: 0 var(--s-5); }
+
+/* ── Masthead (publication banner) ───────────────────────── */
+.masthead {
+  border-top: 2px solid var(--accent);
+  border-bottom: 1px solid var(--rule);
+}
+.masthead-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 9px var(--s-5) 8px;
+  text-align: center;
+  font-family: var(--body);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-feature-settings: "smcp", "c2sc";
+}
+.masthead-inner .mh-sep { margin: 0 0.7em; opacity: 0.55; }
+.masthead-inner .mh-mark {
+  font-family: var(--display);
+  letter-spacing: 0.06em;
+  text-transform: none;
+  color: var(--ink);
+  font-size: 0.85rem;
+  margin-right: 0.4em;
+  position: relative;
+  top: 1px;
+}
+@media (max-width: 540px) {
+  .masthead-inner { font-size: 0.6rem; letter-spacing: 0.16em; }
+  .masthead-inner .mh-issue { display: none; }
+}
 
 /* ── Meta bar ───────────────────────────────────────────── */
 .meta {
@@ -144,7 +183,7 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
   max-width: 55ch;
   margin-bottom: var(--s-7);
 }
-.hero .lede strong { font-weight: 600; color: var(--ink); }
+.hero .lede strong { font-weight: 600; color: var(--accent); }
 .hero .contacts { display: flex; flex-wrap: wrap; gap: var(--s-5); font-size: 0.9375rem; }
 .hero .contacts a { text-decoration-color: var(--ink-soft); }
 
@@ -302,6 +341,84 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
 .growth-tooltip .tt-week { font-family: var(--display); font-size: 0.875rem; margin-bottom: 2px; }
 .growth-tooltip .tt-val  { color: oklch(90% 0.015 80); }
 .growth-tooltip .tt-note { color: var(--mark); font-size: 0.75rem; margin-top: 3px; font-style: italic; }
+
+/* ── Stat tiles + mini chart (Medium fig) ───────────────── */
+.medium-fig { margin: var(--s-5) 0 var(--s-3); }
+.stat-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s-5);
+  padding: var(--s-5) 0 var(--s-6);
+  border-top: 1px solid var(--rule-soft);
+  border-bottom: 1px solid var(--rule-soft);
+  margin-bottom: var(--s-5);
+}
+.tile-val {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  margin-bottom: var(--s-2);
+  font-variant-numeric: tabular-nums;
+}
+.tile-val .up { color: var(--accent); font-size: 0.7em; margin-left: 2px; }
+.tile-label {
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+.mini-chart-wrap { position: relative; }
+.mini-chart { width: 100%; height: auto; display: block; overflow: visible; cursor: crosshair; }
+.mini-chart .axis-label { font-family: var(--body); font-size: 10px; fill: var(--ink-xs); font-variant-numeric: tabular-nums; }
+.mini-chart .baseline { stroke: var(--rule); stroke-width: 1; }
+.mini-chart .line { stroke: var(--accent); stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.mini-chart .area { fill: var(--accent); fill-opacity: 0.09; }
+.mini-chart .dot { fill: var(--accent); }
+.mini-chart .endlabel { fill: var(--accent); font-family: var(--body); font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.mini-chart .crosshair { stroke: var(--ink-xs); stroke-width: 1; stroke-dasharray: 2 3; pointer-events: none; transition: opacity 120ms; }
+.mini-chart .hover-dot { fill: var(--paper); stroke: var(--accent); stroke-width: 2; pointer-events: none; transition: opacity 120ms; }
+.mini-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 6px 10px;
+  border-radius: 2px;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, calc(-100% - 10px));
+  transition: opacity 120ms;
+  z-index: 5;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 4px 14px oklch(20% 0.02 65 / 0.15);
+}
+.mini-tooltip.active { opacity: 1; }
+.mini-tooltip .tt-m { font-family: var(--display); font-size: 0.8125rem; margin-bottom: 1px; }
+@media (max-width: 640px) {
+  .stat-tiles { grid-template-columns: 1fr 1fr; gap: var(--s-4); padding-bottom: var(--s-5); }
+  .tile-val { font-size: 1.5rem; }
+}
+
+/* ── Inline product video (Fig. 3 — Research NASDAQ tour) ── */
+.video-fig { margin: var(--s-5) 0 var(--s-3); }
+.video-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: oklch(15% 0.020 250);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+.video-wrap video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
 .figcaption {
   font-size: 0.875rem;
   line-height: 1.55;
@@ -533,6 +650,13 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
 
 <div class="chap-indicator" id="chapIndicator"><span id="chapNum"></span> <strong id="chapName"></strong></div>
 
+<div class="masthead">
+  <div class="masthead-inner">
+    <span class="mh-mark">Ju Chen</span>
+    <span class="mh-issue">Vol. I</span><span class="mh-sep">·</span><span class="mh-issue">No. 01</span><span class="mh-sep">·</span>April 2026<span class="mh-sep">·</span>An Independent Portfolio
+  </div>
+</div>
+
 <header class="wrap meta">
   <div class="mark">Ju Chen</div>
   <nav>
@@ -557,7 +681,7 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
     <p class="lede reveal d3">
       Eight months at Bohrium (DP Technology) I grew total weekly impressions
       <strong>from 2K to 27K</strong> across six channels, launched the company blog from zero
-      to <strong>average Google position 6.5</strong>, revived Medium from 20 to
+      to <strong>average Google position 6</strong>, revived Medium from 20 to
       <strong>812 presentations per month</strong>, and shipped four interactive demos —
       the Qingming edition of <em>PhD Graveyard</em> alone pulled roughly 70% of Blog
       traffic in its first three days.
@@ -724,12 +848,32 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
           <div class="subhead">The dataviz that earns trust</div>
           <h3>Research Stock Market</h3>
           <p class="prose">
-            A Bloomberg-terminal-styled visualization of thirty research disciplines
-            as tradeable stocks — OHLC candlesticks driven by real Bohrium publication
-            data across 170&thinsp;M papers. <strong>Fifty programmatic SEO pages</strong> planned on top,
-            one per discipline, targeting high-volume existential searches like
-            <em>"Is X dying?"</em>. One viral week on X cleared <strong>21K impressions</strong> by itself.
+            A Bloomberg-terminal-styled visualization of academic disciplines
+            as tradeable stocks &mdash; OHLC candlesticks, analyst ratings, a real-time
+            ticker tape. The aggregate Hub page is live; <strong>fifty programmatic SEO
+            pages</strong> (one per discipline, targeting existential searches like
+            <em>&ldquo;Is X dying?&rdquo;</em>) are next in the build, ahead of the public
+            launch on X.
           </p>
+
+          <figure class="video-fig">
+            <div class="video-wrap">
+              <video
+                src="media/research-stock-market.mp4"
+                poster="media/research-stock-market-poster.jpg"
+                preload="metadata"
+                autoplay muted loop playsinline controls
+                aria-label="20-second tour of the Research NASDAQ build">
+              </video>
+            </div>
+            <figcaption class="figcaption">
+              <span class="fig-tag">Fig. 3</span>
+              A 20-second tour of the Research NASDAQ build &mdash; the ticker tape, the
+              detail panel, the analyst-rating gradient. Bohrium-data driven; awaiting
+              promotion.
+            </figcaption>
+          </figure>
+
           <a class="try" href="https://www.bohrium.com/blog/30-day-sprint/research-stock-market/play.html" target="_blank" rel="noopener">Try live</a>
         </div>
       </article>
@@ -769,7 +913,7 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
             301 redirect strategy.
           </p>
           <p class="prose">
-            Two months after launch: <strong>average Google position 6.5, 23K impressions</strong>.
+            Two months after launch: <strong>average Google position 6, 23K impressions</strong>.
           </p>
           <a class="try" href="https://bohrium.com/blog" target="_blank" rel="noopener">Visit the blog</a>
         </div>
@@ -785,9 +929,62 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
             ~20 presentations/month. I rebalanced the technical-vs-popular line, got
             CTO sign-off on the new voice, then built reusable article structures
             and a rotation of style templates keyed to Medium's audience segments.
-            <strong>812 presentations / month at peak, +63% MoM.</strong>
           </p>
-          <a class="try muted" href="#" data-todo="medium-handle">Read on Medium</a>
+
+          <figure class="medium-fig">
+            <dl class="stat-tiles">
+              <div>
+                <dd class="tile-val">812</dd>
+                <dt class="tile-label">Peak monthly<br>presentations</dt>
+              </div>
+              <div>
+                <dd class="tile-val">20</dd>
+                <dt class="tile-label">When I took over<br>(AI-draft era)</dt>
+              </div>
+              <div>
+                <dd class="tile-val">+63%<span class="up">&uarr;</span></dd>
+                <dt class="tile-label">Dec &rarr; Jan<br>month-over-month</dt>
+              </div>
+              <div>
+                <dd class="tile-val">40.6&times;</dd>
+                <dt class="tile-label">Total multiplier<br>in four months</dt>
+              </div>
+            </dl>
+
+            <div class="mini-chart-wrap">
+              <svg class="mini-chart" viewBox="0 0 1000 260" role="img" aria-labelledby="med-title med-desc">
+                <title id="med-title">Monthly Medium presentations</title>
+                <desc id="med-desc">Interactive area chart — hover any month to read the count. Monthly Medium presentations grew from 20 in October 2025 to 812 in January 2026.</desc>
+
+                <line class="baseline" x1="40" y1="220" x2="970" y2="220"/>
+                <text class="axis-label" x="40"  y="80"  text-anchor="start">800</text>
+                <text class="axis-label" x="40"  y="148" text-anchor="start">400</text>
+                <text class="axis-label" x="40"  y="215" text-anchor="start">0</text>
+                <text class="axis-label" x="50"  y="248" text-anchor="middle">Oct '25</text>
+                <text class="axis-label" x="650" y="248" text-anchor="middle">Dec '25</text>
+                <text class="axis-label" x="950" y="248" text-anchor="middle">Jan '26</text>
+
+                <path class="area" d="M 50 216 L 650 130 L 950 74 L 950 220 L 50 220 Z"/>
+                <path class="line" d="M 50 216 L 650 130 L 950 74"/>
+
+                <circle class="dot" cx="50"  cy="216" r="3.5"/>
+                <circle class="dot" cx="650" cy="130" r="3.5"/>
+                <circle class="dot" cx="950" cy="74"  r="4.5"/>
+                <text class="endlabel" x="960" y="70" text-anchor="start">812</text>
+
+                <line class="crosshair" x1="0" y1="40" x2="0" y2="220" style="opacity:0"/>
+                <circle class="hover-dot" cx="0" cy="0" r="5" style="opacity:0"/>
+              </svg>
+              <div class="mini-tooltip" role="tooltip" aria-hidden="true"></div>
+            </div>
+
+            <figcaption class="figcaption">
+              <span class="fig-tag">Fig. 2</span>
+              Monthly presentations on Medium, October 2025 &rarr; January 2026. Hover
+              any point to read the exact count.
+            </figcaption>
+          </figure>
+
         </div>
       </article>
 
@@ -805,7 +1002,6 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
             → write the post → generate the image → schedule the thread — one person,
             full pipeline.
           </p>
-          <a class="try muted" href="#" data-todo="writeup">Writeup forthcoming</a>
         </div>
       </article>
 
@@ -903,7 +1099,7 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         <div class="tl-year">2024.12</div>
         <div class="tl-body">
           <div class="tag">Work</div>
-          <h4>AI Content Marketing &amp; Strategy Consultant · Inception AI (RunComfy)</h4>
+          <h4>AI Content Marketing &amp; Strategy Consultant · Inception AI (<a href="https://www.runcomfy.com/comfyui-workflows" target="_blank" rel="noopener">RunComfy</a>)</h4>
           <p>Built the ComfyUI-workflow and LoRA screening system, sifting 800+ workflows across 20+ platforms. n8n pipeline + reusable prompt library → <strong>20+ pages/day</strong>. <strong>100+ pages</strong> individually optimized, <strong>90% of core keywords on Google page one</strong>, traffic <strong>+128% MoM (350K → 800K)</strong>. Creator co-promotions with OpenArt and Civitai influencers; LinkedIn engagement +35%, X +27%. <em>Through 2025.07.</em></p>
         </div>
       </div>
@@ -1018,7 +1214,7 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
     {w:19, x:826,  y:303, total:1950,  date:"Feb 23 – Mar 1", note:""},
     {w:20, x:868,  y:249, total:8200,  date:"Mar 2 – 8",      note:""},
     {w:21, x:910,  y:239, total:9300,  date:"Mar 9 – 15",     note:""},
-    {w:22, x:952,  y:134, total:21400, date:"Mar 16 – 22",    note:"Research Stock Market goes viral"},
+    {w:22, x:952,  y:134, total:21400, date:"Mar 16 – 22",    note:"X exposure spike"},
     {w:23, x:994,  y:234, total:9900,  date:"Mar 23 – 29",    note:""},
     {w:24, x:1036, y:129, total:22000, date:"Mar 30 – Apr 5", note:"Qingming · PhD Graveyard launches"},
     {w:25, x:1078, y:138, total:21000, date:"Apr 6 – 12",     note:""},
@@ -1080,6 +1276,69 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
   document.addEventListener('pointerdown', (e) => { if (!svg.contains(e.target)) hide(); });
 })();
 
+// ── Mini chart (Medium) interactivity ───────────────────
+(() => {
+  const months = [
+    {m:1, x:50,  y:216, val:20,  date:"Oct 2025", note:"I took over — AI-draft era"},
+    {m:2, x:650, y:130, val:498, date:"Dec 2025", note:"New voice + templates landing"},
+    {m:3, x:950, y:74,  val:812, date:"Jan 2026", note:"+63% MoM · all-time high"}
+  ];
+
+  const svg = document.querySelector('.mini-chart');
+  if (!svg) return;
+  const wrap = svg.closest('.mini-chart-wrap');
+  const tooltip = wrap.querySelector('.mini-tooltip');
+  const crosshair = svg.querySelector('.crosshair');
+  const hoverDot = svg.querySelector('.hover-dot');
+  const pt = svg.createSVGPoint();
+
+  function nearest(x) {
+    let best = months[0], d = Infinity;
+    for (const m of months) {
+      const dd = Math.abs(m.x - x);
+      if (dd < d) { d = dd; best = m; }
+    }
+    return best;
+  }
+
+  function show(evt) {
+    pt.x = evt.clientX; pt.y = evt.clientY;
+    const ctm = svg.getScreenCTM();
+    if (!ctm) return;
+    const p = pt.matrixTransform(ctm.inverse());
+    if (p.x < 40 || p.x > 970) { hide(); return; }
+    const m = nearest(p.x);
+    crosshair.setAttribute('x1', m.x);
+    crosshair.setAttribute('x2', m.x);
+    crosshair.style.opacity = 1;
+    hoverDot.setAttribute('cx', m.x);
+    hoverDot.setAttribute('cy', m.y);
+    hoverDot.style.opacity = 1;
+    const sb = svg.getBoundingClientRect();
+    const wb = wrap.getBoundingClientRect();
+    const sx = m.x / 1000 * sb.width + (sb.left - wb.left);
+    const sy = m.y / 260  * sb.height + (sb.top  - wb.top);
+    tooltip.style.left = sx + 'px';
+    tooltip.style.top  = sy + 'px';
+    tooltip.innerHTML =
+      '<div class="tt-m">' + m.date + '</div>' +
+      '<div>' + m.val.toLocaleString() + ' presentations</div>' +
+      (m.note ? '<div style="color:oklch(92% 0.095 88);font-style:italic;margin-top:2px;font-size:0.7rem">' + m.note + '</div>' : '');
+    tooltip.classList.add('active');
+  }
+
+  function hide() {
+    crosshair.style.opacity = 0;
+    hoverDot.style.opacity = 0;
+    tooltip.classList.remove('active');
+  }
+
+  svg.addEventListener('pointerenter', show);
+  svg.addEventListener('pointermove', show);
+  svg.addEventListener('pointerleave', hide);
+  document.addEventListener('pointerdown', (e) => { if (!svg.contains(e.target)) hide(); });
+})();
+
 // ── Iframe: fade out the loading hint once loaded ───────
 (() => {
   const wrap = document.getElementById('opener-frame');
@@ -1091,7 +1350,7 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
   setTimeout(() => wrap.classList.add('loaded'), 6000);
 })();
 
-// ── Sticky chapter indicator ────────────────────────────
+// ── Sticky chapter indicator + body tint ────────────────
 (() => {
   const indicator = document.getElementById('chapIndicator');
   const numEl = document.getElementById('chapNum');
@@ -1100,29 +1359,34 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
   const chapters = Array.from(document.querySelectorAll('[data-chap]'));
   if (!chapters.length) return;
 
-  const observer = new IntersectionObserver((entries) => {
-    // Track which chapter's top is closest to viewport top
+  let raf = 0;
+  function update() {
+    raf = 0;
     let current = null;
     for (const ch of chapters) {
       const rect = ch.getBoundingClientRect();
-      if (rect.top <= 80 && rect.bottom > 80) current = ch;
+      if (rect.top <= 80 && rect.bottom > 80) { current = ch; break; }
     }
     if (!current) {
-      // fallback: pick topmost visible
-      for (const entry of entries) {
-        if (entry.isIntersecting) { current = entry.target; break; }
-      }
+      indicator.classList.remove('visible');
+      document.body.removeAttribute('data-chapter');
+      return;
     }
-    if (!current) { indicator.classList.remove('visible'); return; }
+    if (current.id) document.body.dataset.chapter = current.id;
     const num = current.dataset.chap;
     const name = current.dataset.name || '';
     if (num === '0' || !num) { indicator.classList.remove('visible'); return; }
     numEl.textContent = num;
     nameEl.textContent = ' · ' + name;
     indicator.classList.add('visible');
-  }, { threshold: [0, 0.1, 0.5, 1], rootMargin: '-80px 0px 0px 0px' });
-
-  chapters.forEach(c => observer.observe(c));
+  }
+  function schedule() {
+    if (raf) return;
+    raf = requestAnimationFrame(update);
+  }
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule);
+  update();
 })();
 </script>
 
