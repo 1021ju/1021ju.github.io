@@ -20,16 +20,21 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --paper:    oklch(96% 0.012 85);
-  --paper-2:  oklch(93% 0.014 85);
-  --ink:      oklch(22% 0.025 65);
-  --ink-soft: oklch(42% 0.020 65);
-  --ink-xs:   oklch(58% 0.015 65);
-  --rule:     oklch(82% 0.014 80);
-  --rule-soft:oklch(88% 0.012 80);
-  --accent:   oklch(45% 0.20 142);
-  --accent-2: oklch(58% 0.16 142);
-  --mark:     oklch(92% 0.095 88);
+  --paper:    oklch(98.6% 0.001 95);
+  --paper-2:  oklch(96.8% 0.001 95);
+  --paper-cool: oklch(97.7% 0.003 255);
+  --paper-sage: oklch(97.2% 0.002 170);
+  --paper-mist: oklch(97.4% 0.003 220);
+  --paper-violet: oklch(97.1% 0.003 300);
+  --paper-stone: oklch(97.1% 0.002 82);
+  --ink:      oklch(17% 0.004 255);
+  --ink-soft: oklch(37% 0.004 255);
+  --ink-xs:   oklch(58% 0.003 255);
+  --rule:     oklch(88% 0.001 95);
+  --rule-soft:oklch(93.5% 0.001 95);
+  --accent:   oklch(24% 0.006 255);
+  --accent-2: oklch(40% 0.004 255);
+  --mark:     oklch(93.5% 0.004 95);
 
   --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
   --s-5: 24px; --s-6: 32px; --s-7: 48px;
@@ -50,12 +55,37 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   transition: background 700ms ease;
+  position: relative;
 }
-/* ── Chapter paper tints — warm cream with whispers of green ── */
-body[data-chapter="ch1"] { background: oklch(95.5% 0.018 100); }  /* warmer, faintly green-yellow */
-body[data-chapter="ch2"] { background: oklch(96.5% 0.014 120); }  /* cooler, faintly mint */
-body[data-chapter="ch3"] { background: oklch(94.5% 0.020 90);  }  /* warmer stone */
-body[data-chapter="now"] { background: oklch(96%   0.012 95);  }  /* base */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  background:
+    radial-gradient(120% 72% at 50% 0%, oklch(97.4% 0.002 255 / 0.16), transparent 0 58%),
+    linear-gradient(180deg, oklch(98.8% 0.001 95), oklch(97.7% 0.001 95));
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.05;
+  background-image:
+    linear-gradient(to right, oklch(32% 0.008 255 / 0.020) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(32% 0.008 255 / 0.016) 1px, transparent 1px),
+    radial-gradient(circle at 1px 1px, oklch(30% 0.006 255 / 0.035) 0.7px, transparent 0);
+  background-size: 150px 150px, 150px 150px, 32px 32px;
+  mix-blend-mode: multiply;
+}
+/* ── Chapter paper tints ────────────────────────────────── */
+body[data-chapter="ch1"] { background: oklch(98.5% 0.001 95); }
+body[data-chapter="ch2"] { background: oklch(98.3% 0.001 95); }
+body[data-chapter="ch3"] { background: oklch(98.1% 0.001 95); }
+body[data-chapter="now"] { background: oklch(98.4% 0.001 95); }
 ::selection { background: var(--mark); color: var(--ink); }
 
 a {
@@ -137,7 +167,7 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
   color: var(--ink-xs);
   letter-spacing: 0.04em;
   padding: var(--s-2) var(--s-3);
-  background: oklch(96% 0.012 85 / 0.85);
+  background: oklch(97.2% 0.001 95 / 0.90);
   backdrop-filter: blur(6px);
   border: 1px solid var(--rule-soft);
   border-radius: 2px;
@@ -155,6 +185,13 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
 .hero {
   padding: clamp(var(--s-7), 12vw, var(--s-9)) 0 var(--s-8);
 }
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(240px, 0.75fr);
+  gap: clamp(var(--s-6), 5vw, var(--s-8));
+  align-items: start;
+}
+.hero-main { min-width: 0; }
 .kicker {
   font-size: 0.8125rem;
   letter-spacing: 0.02em;
@@ -186,13 +223,295 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
 .hero .lede strong { font-weight: 600; color: var(--accent); }
 .hero .contacts { display: flex; flex-wrap: wrap; gap: var(--s-5); font-size: 0.9375rem; }
 .hero .contacts a { text-decoration-color: var(--ink-soft); }
+.hero-aside {
+  position: relative;
+  padding: var(--s-5);
+  border: 1px solid var(--rule);
+  background:
+    linear-gradient(180deg, oklch(98.7% 0.001 95 / 0.98), oklch(96.9% 0.001 95 / 0.96)),
+    var(--paper);
+  box-shadow: 0 18px 48px oklch(10% 0.003 255 / 0.04);
+}
+.hero-aside::before {
+  content: "";
+  position: absolute;
+  inset: 12px 12px auto auto;
+  width: 52px;
+  height: 1px;
+  background: color-mix(in oklch, var(--ink-soft) 28%, white);
+}
+.aside-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-xs);
+  margin-bottom: var(--s-4);
+}
+.hero-aside h3 {
+  font-family: var(--display);
+  font-size: 1.28rem;
+  line-height: 1.12;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: var(--s-4);
+  max-width: 12ch;
+}
+.hero-aside p {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+.aside-list {
+  list-style: none;
+  display: grid;
+  gap: var(--s-4);
+  margin: var(--s-5) 0;
+}
+.aside-list li {
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--rule-soft);
+}
+.aside-list strong {
+  display: block;
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.aside-list span {
+  display: block;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.aside-note {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--ink-xs);
+}
+.proof-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin-top: var(--s-8);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--rule);
+}
+.proof-item {
+  padding-right: var(--s-4);
+}
+.proof-item strong {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(1.45rem, 2.6vw, 2rem);
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--s-2);
+}
+.proof-item span {
+  display: block;
+  font-size: 0.79rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 20ch;
+}
+.atlas-panel {
+  position: relative;
+  margin-top: var(--s-7);
+  padding: clamp(var(--s-5), 3vw, var(--s-6));
+  border: 1px solid var(--rule);
+  background:
+    linear-gradient(135deg, oklch(98.3% 0.002 95 / 0.98), oklch(96.8% 0.003 235 / 0.94)),
+    var(--paper);
+  overflow: hidden;
+  box-shadow: 0 24px 56px oklch(24% 0.010 255 / 0.05);
+}
+.atlas-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 28%, oklch(82% 0.018 240 / 0.08), transparent 0 20%),
+    radial-gradient(circle at 78% 68%, oklch(92% 0.010 84 / 0.06), transparent 0 18%),
+    linear-gradient(90deg, transparent 10%, oklch(28% 0.008 255 / 0.04) 10% 10.2%, transparent 10.2% 100%);
+  pointer-events: none;
+}
+.atlas-panel::after {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border: 1px solid oklch(42% 0.015 72 / 0.08);
+  pointer-events: none;
+}
+.atlas-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: var(--s-6);
+  align-items: end;
+}
+.atlas-map {
+  position: relative;
+  min-height: 320px;
+  border: 1px solid var(--rule-soft);
+  background:
+    radial-gradient(circle at 20% 24%, oklch(88% 0.014 236 / 0.12), transparent 0 10%),
+    radial-gradient(circle at 48% 58%, oklch(92% 0.008 84 / 0.08), transparent 0 8%),
+    radial-gradient(circle at 72% 34%, oklch(87% 0.016 246 / 0.10), transparent 0 9%),
+    linear-gradient(180deg, oklch(98.2% 0.002 95), oklch(96.6% 0.003 95));
+  overflow: hidden;
+}
+.atlas-map svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.atlas-note {
+  position: relative;
+  display: grid;
+  gap: var(--s-4);
+}
+.atlas-note .stamp {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.atlas-note h3 {
+  font-family: var(--display);
+  font-size: clamp(1.55rem, 2.6vw, 2.2rem);
+  line-height: 1.08;
+  font-weight: 400;
+  color: var(--ink);
+  max-width: 12ch;
+}
+.atlas-note p {
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  max-width: 32ch;
+}
+.atlas-note .index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--rule-soft);
+  font-size: 0.76rem;
+  color: var(--ink-xs);
+}
+.case-covers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin: var(--s-7) 0 var(--s-5);
+}
+.case-cover {
+  position: relative;
+  min-height: 180px;
+  padding: var(--s-4);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, oklch(98.3% 0.002 95 / 0.98), oklch(96.5% 0.003 94 / 0.95)),
+    var(--paper);
+}
+.case-cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 18%, oklch(88% 0.016 236 / 0.10), transparent 0 22%),
+    linear-gradient(130deg, transparent 0 60%, oklch(28% 0.008 255 / 0.06) 60% 61%, transparent 61%),
+    linear-gradient(0deg, transparent 0 76%, oklch(28% 0.008 255 / 0.05) 76% 76.6%, transparent 76.6%);
+}
+.case-cover:nth-child(2)::before {
+  background:
+    radial-gradient(circle at 72% 26%, oklch(92% 0.010 84 / 0.08), transparent 0 24%),
+    linear-gradient(90deg, transparent 0 68%, oklch(28% 0.008 255 / 0.06) 68% 68.8%, transparent 68.8%),
+    linear-gradient(180deg, transparent 0 40%, oklch(28% 0.008 255 / 0.05) 40% 40.7%, transparent 40.7%);
+}
+.case-cover:nth-child(3)::before {
+  background:
+    radial-gradient(circle at 34% 68%, oklch(88% 0.016 238 / 0.09), transparent 0 22%),
+    linear-gradient(35deg, transparent 0 54%, oklch(28% 0.008 255 / 0.06) 54% 54.8%, transparent 54.8%),
+    linear-gradient(180deg, transparent 0 22%, oklch(28% 0.008 255 / 0.05) 22% 22.6%, transparent 22.6%);
+}
+.case-cover > * { position: relative; z-index: 1; }
+.case-cover .cover-no {
+  display: inline-block;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-xs);
+  margin-bottom: var(--s-5);
+}
+.case-cover h4 {
+  font-family: var(--display);
+  font-size: 1.2rem;
+  line-height: 1.05;
+  font-weight: 400;
+  color: var(--ink);
+  max-width: 10ch;
+  margin-bottom: var(--s-3);
+}
+.case-cover p {
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 22ch;
+}
+.case-cover .cover-meta {
+  margin-top: var(--s-5);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--rule-soft);
+  font-size: 0.72rem;
+  color: var(--ink-xs);
+}
 
 /* ── Opener: playable iframe ────────────────────────────── */
 .opener {
+  position: relative;
   margin: var(--s-7) 0 var(--s-9);
-  padding: var(--s-7) 0 var(--s-6);
+  padding: var(--s-8) 0 var(--s-8);
+  border: none;
+  isolation: isolate;
+}
+.opener::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 100vw;
+  height: 100%;
+  transform: translateX(-50%);
+  z-index: -1;
+  background:
+    radial-gradient(circle at 14% 22%, oklch(91.5% 0.028 166 / 0.34), transparent 0 24%),
+    radial-gradient(circle at 84% 18%, oklch(94.8% 0.020 210 / 0.24), transparent 0 22%),
+    linear-gradient(180deg, oklch(96.5% 0.012 166 / 0.78), oklch(98.0% 0.004 210 / 0.28) 72%, transparent 100%);
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
+}
+.opener-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 320px) minmax(0, 1fr);
+  gap: clamp(var(--s-5), 4vw, var(--s-8));
+  align-items: start;
+}
+.opener-head {
+  position: sticky;
+  top: var(--s-7);
+  align-self: start;
+  padding: var(--s-5);
+  background: linear-gradient(180deg, oklch(98.2% 0.004 95 / 0.88), oklch(97.1% 0.008 166 / 0.80));
+  border: 1px solid color-mix(in oklch, var(--accent) 12%, var(--rule));
+  box-shadow: 0 18px 40px oklch(24% 0.010 255 / 0.06);
+  min-width: 0;
 }
 .opener-kicker {
   font-family: var(--display);
@@ -213,20 +532,95 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
   margin-bottom: var(--s-4);
 }
 .opener p.opener-lede {
-  font-size: 1.0625rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.65;
   color: var(--ink);
-  max-width: 55ch;
   margin-bottom: var(--s-5);
 }
 .opener p.opener-lede em { font-style: italic; color: var(--ink); }
+.opener-ledger {
+  display: grid;
+  gap: var(--s-3);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--rule-soft);
+}
+.opener-ledger span {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-4);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+.opener-ledger strong {
+  font-family: var(--display);
+  font-weight: 400;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.opener-stage {
+  position: relative;
+  padding: clamp(var(--s-4), 2.8vw, var(--s-6));
+  background:
+    radial-gradient(circle at 18% 16%, oklch(97.0% 0.012 166 / 0.86), transparent 0 34%),
+    linear-gradient(180deg, oklch(97.4% 0.006 120 / 0.96), oklch(95.8% 0.012 164 / 0.94)),
+    var(--paper);
+  border: 1px solid color-mix(in oklch, var(--accent) 18%, var(--rule));
+  box-shadow: 0 24px 56px oklch(24% 0.010 255 / 0.07);
+  min-width: 0;
+}
+.opener-stage::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid oklch(44% 0.016 150 / 0.10);
+  pointer-events: none;
+}
+.opener-stage::after {
+  content: "";
+  position: absolute;
+  inset: auto 18px 18px auto;
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in oklch, var(--accent) 45%, var(--rule)));
+}
+.opener-stage-top {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-bottom: var(--s-4);
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid oklch(42% 0.012 150 / 0.12);
+}
+.opener-stage-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-xs);
+}
+.opener-stage-title {
+  font-family: var(--display);
+  font-size: 1rem;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.opener-stage-note {
+  max-width: 28ch;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  text-align: right;
+}
 .iframe-wrap {
   position: relative;
   width: 100%;
-  padding-bottom: 62%;
-  background: var(--paper-2);
-  border: 1px solid var(--rule);
+  margin: 0 auto;
+  padding-bottom: 64%;
+  background: oklch(58% 0.026 155);
+  border: 1px solid oklch(40% 0.014 150 / 0.22);
   overflow: hidden;
+  box-shadow: 0 14px 38px oklch(24% 0.012 150 / 0.12);
 }
 .iframe-wrap iframe {
   position: absolute;
@@ -250,7 +644,7 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
 }
 .iframe-wrap.loaded .loading-hint { opacity: 0; }
 .opener-caption {
-  margin-top: var(--s-3);
+  margin: var(--s-3) auto 0;
   font-size: 0.8125rem;
   color: var(--ink-soft);
   display: flex;
@@ -261,8 +655,64 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
 .opener-caption a { color: var(--accent); text-decoration-color: var(--accent); }
 
 /* ── Chapter shell ──────────────────────────────────────── */
+.hero,
+.chapter,
+.stack,
+.now {
+  position: relative;
+  isolation: isolate;
+}
 .chapter { padding: var(--s-9) 0; border-bottom: 1px solid var(--rule); }
 .chapter:last-of-type { border-bottom: none; }
+.hero::before,
+.chapter::before,
+.stack::before,
+.now::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 100vw;
+  height: 100%;
+  transform: translateX(-50%);
+  z-index: -1;
+  pointer-events: none;
+}
+.hero::before {
+  background:
+    radial-gradient(100% 64% at 48% 6%, oklch(96.9% 0.002 255 / 0.24), transparent 0 60%),
+    linear-gradient(180deg, oklch(98.0% 0.001 95 / 0.24), transparent 82%);
+}
+#ch1::before {
+  background:
+    radial-gradient(circle at 82% 16%, oklch(92.6% 0.034 212 / 0.64), transparent 0 28%),
+    radial-gradient(circle at 16% 74%, oklch(95.0% 0.020 190 / 0.28), transparent 0 24%),
+    linear-gradient(180deg, oklch(96.8% 0.014 218 / 0.58), transparent 78%);
+}
+#ch2::before {
+  background:
+    radial-gradient(circle at 14% 18%, oklch(93.2% 0.034 292 / 0.50), transparent 0 30%),
+    radial-gradient(circle at 84% 78%, oklch(94.6% 0.022 248 / 0.32), transparent 0 26%),
+    linear-gradient(180deg, oklch(96.9% 0.014 284 / 0.42), transparent 82%);
+}
+#ch3::before {
+  background:
+    radial-gradient(circle at 22% 26%, oklch(93.7% 0.024 78 / 0.44), transparent 0 28%),
+    radial-gradient(circle at 86% 22%, oklch(95.8% 0.014 52 / 0.22), transparent 0 22%),
+    linear-gradient(180deg, oklch(97.0% 0.012 82 / 0.36), transparent 78%);
+}
+.stack::before {
+  background:
+    radial-gradient(circle at 76% 24%, oklch(94.2% 0.022 228 / 0.42), transparent 0 26%),
+    radial-gradient(circle at 18% 74%, oklch(95.6% 0.014 196 / 0.22), transparent 0 20%),
+    linear-gradient(180deg, oklch(97.2% 0.010 228 / 0.28), transparent 76%);
+}
+.now::before {
+  background:
+    radial-gradient(circle at 82% 18%, oklch(93.4% 0.028 252 / 0.44), transparent 0 28%),
+    radial-gradient(circle at 16% 78%, oklch(95.2% 0.016 220 / 0.22), transparent 0 22%),
+    linear-gradient(180deg, oklch(97.0% 0.012 246 / 0.32), transparent 78%);
+}
 .chap-head { margin-bottom: var(--s-8); max-width: 55ch; }
 .chap-eyebrow {
   font-family: var(--display);
@@ -298,6 +748,70 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
   max-width: 55ch;
 }
 .chap-head .intro strong { font-weight: 600; }
+.chap-art {
+  position: relative;
+  margin: 0 0 var(--s-7);
+  padding: var(--s-5);
+  min-height: 190px;
+  border: 1px solid var(--rule);
+  background:
+    linear-gradient(180deg, oklch(98.3% 0.002 95 / 0.98), oklch(96.5% 0.003 94 / 0.94)),
+    var(--paper);
+  overflow: hidden;
+}
+.chap-art::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 24%, oklch(88% 0.014 236 / 0.10), transparent 0 16%),
+    radial-gradient(circle at 70% 66%, oklch(92% 0.008 84 / 0.08), transparent 0 14%),
+    linear-gradient(115deg, transparent 0 44%, oklch(28% 0.008 255 / 0.06) 44% 44.7%, transparent 44.7%),
+    linear-gradient(0deg, transparent 0 70%, oklch(28% 0.008 255 / 0.05) 70% 70.5%, transparent 70.5%);
+}
+.chap-art[data-tone="mint"]::before {
+  background:
+    radial-gradient(circle at 78% 24%, oklch(88% 0.014 240 / 0.10), transparent 0 17%),
+    radial-gradient(circle at 22% 72%, oklch(92% 0.007 220 / 0.08), transparent 0 14%),
+    linear-gradient(30deg, transparent 0 52%, oklch(28% 0.008 255 / 0.06) 52% 52.8%, transparent 52.8%),
+    linear-gradient(90deg, transparent 0 16%, oklch(28% 0.008 255 / 0.05) 16% 16.5%, transparent 16.5%);
+}
+.chap-art[data-tone="stone"]::before {
+  background:
+    radial-gradient(circle at 26% 68%, oklch(92% 0.008 84 / 0.08), transparent 0 18%),
+    radial-gradient(circle at 76% 28%, oklch(88% 0.012 238 / 0.08), transparent 0 13%),
+    linear-gradient(150deg, transparent 0 48%, oklch(28% 0.008 255 / 0.06) 48% 48.8%, transparent 48.8%),
+    linear-gradient(0deg, transparent 0 28%, oklch(28% 0.008 255 / 0.05) 28% 28.5%, transparent 28.5%);
+}
+.chap-art .label,
+.chap-art .title,
+.chap-art .meta {
+  position: relative;
+  z-index: 1;
+}
+.chap-art .label {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-xs);
+  margin-bottom: var(--s-5);
+}
+.chap-art .title {
+  font-family: var(--display);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1;
+  font-weight: 400;
+  color: var(--ink);
+  max-width: 10ch;
+}
+.chap-art .meta {
+  display: inline-block;
+  margin-top: var(--s-5);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--rule-soft);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
 
 /* ── Chapter I · narrative + chart ──────────────────────── */
 .narrative { max-width: 58ch; margin-bottom: var(--s-7); }
@@ -434,14 +948,35 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
 }
 
 /* ── Chapter II · Playbook entries ──────────────────────── */
-.playbook { display: flex; flex-direction: column; gap: var(--s-9); }
-.pb-entry { display: grid; grid-template-columns: 56px 1fr; gap: var(--s-5); align-items: baseline; }
+.playbook { display: flex; flex-direction: column; gap: var(--s-7); }
+.pb-entry {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: var(--s-5);
+  align-items: baseline;
+  padding: var(--s-5) 0 var(--s-6);
+  border-top: 1px solid var(--rule-soft);
+}
+.pb-entry:first-child { padding-top: 0; border-top: none; }
 .pb-entry .n {
   font-family: var(--display);
   font-size: 1.5rem;
   color: var(--accent);
   line-height: 1;
   padding-top: 6px;
+}
+.pb-entry > div {
+  position: relative;
+  padding: var(--s-3) var(--s-5) 0 0;
+}
+.pb-entry > div::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--s-5));
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, color-mix(in oklch, var(--accent) 40%, var(--rule-soft)), transparent 82%);
 }
 .pb-entry .subhead {
   font-family: var(--display);
@@ -469,6 +1004,23 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
 }
 .pb-entry .prose + .prose { margin-top: calc(-1 * var(--s-2)); }
 .pb-entry .prose strong { font-weight: 600; }
+.pb-entry .proofline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 var(--s-4);
+}
+.pb-entry .proofline span {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-size: 0.74rem;
+  line-height: 1;
+  color: var(--ink-soft);
+  background: oklch(97% 0.012 85 / 0.55);
+}
 .pb-entry .try {
   display: inline-flex;
   align-items: center;
@@ -590,6 +1142,28 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
   margin-top: var(--s-6);
   max-width: 55ch;
 }
+.fit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin-top: var(--s-6);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--rule-soft);
+}
+.fit-item strong {
+  display: block;
+  font-family: var(--display);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.fit-item span {
+  display: block;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
 .now .now-contact {
   display: flex;
   flex-wrap: wrap;
@@ -620,16 +1194,31 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
   .meta { flex-wrap: wrap; row-gap: var(--s-3); }
   .meta nav { order: 3; width: 100%; }
   .hero { padding: var(--s-7) 0 var(--s-7); }
-  .opener { padding: var(--s-5) 0 var(--s-5); margin: var(--s-6) 0 var(--s-8); }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-aside { padding: var(--s-4); }
+  .proof-strip { grid-template-columns: 1fr 1fr; gap: var(--s-5) var(--s-4); }
+  .atlas-grid { grid-template-columns: 1fr; }
+  .atlas-map { min-height: 240px; }
+  .case-covers { grid-template-columns: 1fr; }
+  .opener { padding: var(--s-6) 0; margin: var(--s-6) 0 var(--s-8); }
+  .opener-layout { grid-template-columns: 1fr; }
+  .opener-head { position: static; padding: var(--s-4); }
+  .opener-ledger span { grid-template-columns: 1fr; }
+  .opener-stage { padding: var(--s-3); }
+  .opener-stage-top { flex-direction: column; align-items: start; }
+  .opener-stage-note { text-align: left; max-width: none; }
   .iframe-wrap { padding-bottom: 120%; }
   .chapter { padding: var(--s-8) 0; }
   .pb-entry { grid-template-columns: 36px 1fr; gap: var(--s-4); }
   .pb-entry .n { font-size: 1.125rem; padding-top: 4px; }
+  .pb-entry > div { padding-right: 0; }
+  .pb-entry > div::before { left: calc(-1 * var(--s-4)); }
   .timeline { grid-template-columns: 70px 1fr; }
   .tl-year { font-size: 1rem; padding-right: var(--s-4); }
   .tl-body { padding-left: var(--s-4); }
   .stack-row { grid-template-columns: 1fr; gap: var(--s-2); }
   .stack-row dt { font-size: 1rem; color: var(--accent); }
+  .fit-grid { grid-template-columns: 1fr; }
   .growth-svg .annot-label, .growth-svg .annot-sub { font-size: 11px; }
 }
 
@@ -672,50 +1261,155 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
 
   <!-- ── HERO ── -->
   <section class="wrap hero">
-    <p class="kicker reveal">
-      <em>Ju Chen</em> &nbsp;·&nbsp; AI marketer &nbsp;·&nbsp; Philosophy PhD (Cornell / Renmin) &nbsp;·&nbsp; writes in English and Mandarin
-    </p>
-    <h1 class="reveal d2">
-      I turn research into <span class="mk">attention</span> — usually by building something weird enough to ship.
-    </h1>
-    <p class="lede reveal d3">
-      Eight months at Bohrium (DP Technology) I grew total weekly impressions
-      <strong>from 2K to 27K</strong> across six channels, launched the company blog from zero
-      to <strong>average Google position 6</strong>, revived Medium from 20 to
-      <strong>812 presentations per month</strong>, and shipped four interactive demos —
-      the Qingming edition of <em>PhD Graveyard</em> alone pulled roughly 70% of Blog
-      traffic in its first three days.
-    </p>
-    <div class="contacts reveal d4">
-      <a href="mailto:juchen1128@hotmail.com">juchen1128@hotmail.com</a>
-      <a href="https://www.linkedin.com/in/ju-chen-196a012b9/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/1021ju" target="_blank" rel="noopener">GitHub</a>
+    <div class="hero-grid">
+      <div class="hero-main">
+        <p class="kicker reveal">
+          <em>Ju Chen</em> &nbsp;·&nbsp; AI marketer &nbsp;·&nbsp; Philosophy PhD (Cornell / Renmin) &nbsp;·&nbsp; writes in English and Mandarin
+        </p>
+        <h1 class="reveal d2">
+          I turn research into <span class="mk">attention</span> — then build the system that keeps it compounding.
+        </h1>
+        <p class="lede reveal d3">
+          At Bohrium, I wasn't handed a mature growth machine. I built one: content engine,
+          SEO spine, conference pipeline, and interactive demos strong enough to make an AI-for-Science
+          brand feel alive. In eight months that stack moved total weekly impressions
+          <strong>from 2K to 27K</strong>, pushed the blog to <strong>average Google position 6</strong>,
+          revived Medium from 20 to <strong>812 presentations per month</strong>, and turned weird,
+          high-conviction ideas into traffic.
+        </p>
+        <div class="contacts reveal d4">
+          <a href="mailto:juchen1128@hotmail.com">juchen1128@hotmail.com</a>
+          <a href="https://www.linkedin.com/in/ju-chen-196a012b9/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/1021ju" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+      <aside class="hero-aside reveal d4" aria-label="Profile summary">
+        <div class="aside-label">Editorial note</div>
+        <h3>Not a content operator. A taste-driven growth builder.</h3>
+        <p>
+          My edge is the combination: philosophical training, editorial instinct,
+          technical systems thinking, and a willingness to ship things that are slightly
+          unhinged if that is what the audience will remember.
+        </p>
+        <ul class="aside-list">
+          <li>
+            <strong>What I build</strong>
+            <span>Brand systems, SEO architecture, automation, and interactive hooks that make people care.</span>
+          </li>
+          <li>
+            <strong>What I optimize for</strong>
+            <span>Attention with memory: not just clicks, but artifacts people talk about and return to.</span>
+          </li>
+          <li>
+            <strong>What teams get</strong>
+            <span>A marketer who can write, design, prototype, and orchestrate AI tooling end to end.</span>
+          </li>
+        </ul>
+        <p class="aside-note">Best fit: AI products, research-adjacent tools, or ambitious companies that need taste as much as throughput.</p>
+      </aside>
+    </div>
+    <div class="proof-strip" aria-label="Selected proof points">
+      <div class="proof-item">
+        <strong>27K / wk</strong>
+        <span>Total weekly impressions after eight months of rebuilding the stack from near zero.</span>
+      </div>
+      <div class="proof-item">
+        <strong>Avg. Pos. 6</strong>
+        <span>Blog launched from scratch, then pushed into meaningful Google visibility in roughly two months.</span>
+      </div>
+      <div class="proof-item">
+        <strong>812 / mo</strong>
+        <span>Medium presentations after rewriting the voice, structure, and audience fit.</span>
+      </div>
+      <div class="proof-item">
+        <strong>29 skills</strong>
+        <span>Self-built Claude Code skills across the content lifecycle, coordinated through three agents.</span>
+      </div>
+    </div>
+    <div class="atlas-panel" aria-label="Research atlas visual direction">
+      <div class="atlas-grid">
+        <div class="atlas-map" aria-hidden="true">
+          <svg viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M64 84C131 97 176 138 215 161C252 183 284 189 330 182C387 173 423 136 468 121C515 105 565 111 607 139" stroke="oklch(40% 0.018 70 / 0.55)" stroke-width="1.25" stroke-dasharray="3 6"/>
+            <path d="M92 256C156 210 208 196 257 209C297 220 324 245 370 248C425 252 467 226 505 199C542 172 577 155 611 159" stroke="oklch(40% 0.018 70 / 0.48)" stroke-width="1.15" stroke-dasharray="4 8"/>
+            <path d="M141 74C171 124 197 173 224 202C259 240 298 252 341 253C385 254 432 241 470 220C523 192 560 149 587 101" stroke="oklch(45% 0.20 142 / 0.28)" stroke-width="2.2"/>
+            <path d="M87 290L190 230L305 264L432 197L563 225" stroke="oklch(22% 0.025 65 / 0.42)" stroke-width="1.2"/>
+            <circle cx="141" cy="74" r="6" fill="oklch(45% 0.20 142 / 0.26)"/>
+            <circle cx="341" cy="253" r="7" fill="oklch(45% 0.20 142 / 0.22)"/>
+            <circle cx="587" cy="101" r="6" fill="oklch(45% 0.20 142 / 0.30)"/>
+            <circle cx="190" cy="230" r="5" fill="oklch(74% 0.06 88 / 0.24)"/>
+            <circle cx="432" cy="197" r="5" fill="oklch(74% 0.06 88 / 0.24)"/>
+            <g stroke="oklch(32% 0.015 70 / 0.14)" stroke-width="1">
+              <line x1="92" y1="38" x2="92" y2="322"/>
+              <line x1="236" y1="38" x2="236" y2="322"/>
+              <line x1="380" y1="38" x2="380" y2="322"/>
+              <line x1="524" y1="38" x2="524" y2="322"/>
+              <line x1="44" y1="84" x2="604" y2="84"/>
+              <line x1="44" y1="180" x2="604" y2="180"/>
+              <line x1="44" y1="276" x2="604" y2="276"/>
+            </g>
+            <text x="58" y="56" fill="oklch(58% 0.015 65)" font-size="12" letter-spacing="3">RESEARCH ATLAS / 2026</text>
+            <text x="470" y="48" fill="oklch(58% 0.015 65)" font-size="12" letter-spacing="2">INDEX 04</text>
+          </svg>
+        </div>
+        <div class="atlas-note">
+          <div class="stamp">Field Notes</div>
+          <h3>An archive of attention, not a generic portfolio.</h3>
+          <p>
+            The visual system should feel like an annotated map of strange, high-leverage work:
+            part research notebook, part exhibition label, part growth dossier.
+          </p>
+          <div class="index">
+            <span>ARCHIVE</span>
+            <span>NETWORK</span>
+            <span>FIELD LOG</span>
+            <span>CASE INDEX</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ── OPENER: playable iframe ── -->
-  <section class="wrap opener" id="opener" data-chap="0" data-name="Play first">
-    <div class="opener-kicker">First — play this</div>
-    <h2>Every person who sees this laughs. That was the point.</h2>
-    <p class="opener-lede">
-      <em>PhD Graveyard — Qingming Edition.</em> Ninety-five plus tombstones for
-      fields of research that quietly died. Lay a flower on any grave; the flowers
-      are shared globally via a Cloudflare Worker, so if you come back later
-      someone else's petals will still be there. Three days after launch it was
-      carrying <strong>~70% of our blog traffic</strong>.
-    </p>
-    <div class="iframe-wrap" id="opener-frame">
-      <div class="loading-hint">Loading the graveyard…</div>
-      <iframe
-        src="https://www.bohrium.com/blog/30-day-sprint/phd-graveyard-qingming/play.html"
-        title="PhD Graveyard — Qingming Edition, a viral demo by Ju Chen"
-        loading="lazy"
-        allow="fullscreen"
-        sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
-    </div>
-    <div class="opener-caption">
-      <span>Demo runs in this page. <a href="https://www.bohrium.com/blog/30-day-sprint/phd-graveyard-qingming/play.html" target="_blank" rel="noopener">Open full-screen &rarr;</a></span>
-      <span>Cloudflare Worker + KV · built by Ju · April 2026</span>
+  <section class="wrap-wide opener" id="opener" data-chap="0" data-name="Play first">
+    <div class="opener-layout">
+      <div class="opener-head">
+        <div class="opener-kicker">First — play this</div>
+        <h2>Every person who sees this laughs. That was the point.</h2>
+        <p class="opener-lede">
+          <em>PhD Graveyard — Qingming Edition.</em> Ninety-five plus tombstones for
+          fields of research that quietly died. Lay a flower on any grave; the flowers
+          are shared globally via a Cloudflare Worker, so if you come back later
+          someone else's petals will still be there.
+        </p>
+        <div class="opener-ledger" aria-label="Project notes">
+          <span><strong>Timing</strong> Qingming release window, when everyone was already thinking about death</span>
+          <span><strong>Mechanic</strong> Shared petals persisted globally, so each visit felt socially haunted</span>
+          <span><strong>Outcome</strong> About 70% of total blog traffic in the first three days</span>
+        </div>
+      </div>
+      <div class="opener-stage">
+        <div class="opener-stage-top">
+          <div>
+            <div class="opener-stage-label">Featured work / interactive ritual</div>
+            <div class="opener-stage-title">PhD Graveyard — Qingming Edition</div>
+          </div>
+          <div class="opener-stage-note">A memorial joke dressed as an interface, framed here as the piece that taught the rest of the page how to feel.</div>
+        </div>
+        <div class="iframe-wrap" id="opener-frame">
+          <div class="loading-hint">Loading the graveyard…</div>
+          <iframe
+            src="https://www.bohrium.com/blog/30-day-sprint/phd-graveyard-qingming/play.html"
+            title="PhD Graveyard — Qingming Edition, a viral demo by Ju Chen"
+            loading="lazy"
+            allow="fullscreen"
+            sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
+        <div class="opener-caption">
+          <span>Demo runs in this page. <a href="https://www.bohrium.com/blog/30-day-sprint/phd-graveyard-qingming/play.html" target="_blank" rel="noopener">Open full-screen &rarr;</a></span>
+          <span>Cloudflare Worker + KV · built by Ju · April 2026</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -731,6 +1425,11 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         months of what that looked like in numbers.
       </p>
     </div>
+    <figure class="chap-art" aria-hidden="true">
+      <div class="label">Dossier plate / 01</div>
+      <div class="title">Attention curve as field evidence.</div>
+      <div class="meta">signals, compounding, annotated spikes</div>
+    </figure>
 
     <!-- ── Growth figure ── -->
     <figure class="growth">
@@ -804,6 +1503,26 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         stack so one person can keep it all running. Here they are in that order.
       </p>
     </div>
+    <div class="case-covers" aria-hidden="true">
+      <figure class="case-cover">
+        <span class="cover-no">Case file 01</span>
+        <h4>PhD Graveyard</h4>
+        <p>Ritual, timing, memory, and a joke people could not resist forwarding.</p>
+        <div class="cover-meta">qingming / interactive / shared state</div>
+      </figure>
+      <figure class="case-cover">
+        <span class="cover-no">Case file 02</span>
+        <h4>Conference Hub</h4>
+        <p>From chaos to index: a pipeline that turns thousands of papers into one destination.</p>
+        <div class="cover-meta">automation / triage / aggregation</div>
+      </figure>
+      <figure class="case-cover">
+        <span class="cover-no">Case file 03</span>
+        <h4>Research NASDAQ</h4>
+        <p>A speculative market for disciplines, designed to make scientific trends legible.</p>
+        <div class="cover-meta">dataviz / SEO / narrative framing</div>
+      </figure>
+    </div>
 
     <div class="playbook">
 
@@ -812,6 +1531,11 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         <div>
           <div class="subhead">The hook that makes people laugh</div>
           <h3>PhD Graveyard — Qingming Edition</h3>
+          <div class="proofline">
+            <span>~70% of blog traffic</span>
+            <span>1,315 users in 3 days</span>
+            <span>Shared flowers via Cloudflare KV</span>
+          </div>
           <p class="prose">
             The one you just played. 95 English gravestones; 123 Chinese ones for
             Qingming with burning paper, golden ingots, and a boy-on-an-ox meandering
@@ -831,6 +1555,11 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         <div>
           <div class="subhead">The game that makes them stay</div>
           <h3>Paper or Bullshit?</h3>
+          <div class="proofline">
+            <span>203 questions live</span>
+            <span>15-second round timer</span>
+            <span>Soft login after round two</span>
+          </div>
           <p class="prose">
             Can you tell a real arXiv paper from one an LLM made up? 153 real titles
             against 50 generated ones, 15-second timer per round, soft login on round
@@ -847,6 +1576,11 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         <div>
           <div class="subhead">The dataviz that earns trust</div>
           <h3>Research Stock Market</h3>
+          <div class="proofline">
+            <span>Bloomberg-terminal framing</span>
+            <span>Real Bohrium paper data</span>
+            <span>50 SEO pages queued</span>
+          </div>
           <p class="prose">
             A Bloomberg-terminal-styled visualization of academic disciplines
             as tradeable stocks &mdash; OHLC candlesticks, analyst ratings, a real-time
@@ -883,6 +1617,11 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         <div>
           <div class="subhead">The automation that scales</div>
           <h3>Conference Hub pipeline</h3>
+          <div class="proofline">
+            <span>5 custom skills</span>
+            <span>5,356 papers triaged</span>
+            <span>2,300+ impressions in 48h</span>
+          </div>
           <p class="prose">
             I judged single-paper write-ups would always be long-tail low-traffic, so I
             designed a conference <em>Hub</em> aggregation page as the actual traffic driver
@@ -900,6 +1639,11 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         <div>
           <div class="subhead">The SEO spine that compounds</div>
           <h3>Blog engine + i18n architecture</h3>
+          <div class="proofline">
+            <span>23K search impressions</span>
+            <span>Avg. Google position 6</span>
+            <span>English blog + Chinese playground split</span>
+          </div>
           <p class="prose">
             The stack behind <em>bohrium.com/blog</em>, built from zero: a
             meta-title/description prompt system modelled on <em>emergentmind</em>, an
@@ -924,6 +1668,11 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         <div>
           <div class="subhead">The narrative channel, revived</div>
           <h3>Medium, from 20 to 812 / month</h3>
+          <div class="proofline">
+            <span>40.6x overall multiplier</span>
+            <span>CTO-approved editorial reset</span>
+            <span>Audience-segmented templates</span>
+          </div>
           <p class="prose">
             Took over Medium when it was running on AI-generated drafts pushing
             ~20 presentations/month. I rebalanced the technical-vs-popular line, got
@@ -993,6 +1742,11 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         <div>
           <div class="subhead">The agent stack behind all of it</div>
           <h3>Three agents, twenty-nine skills</h3>
+          <div class="proofline">
+            <span>3 agent systems</span>
+            <span>29 self-built skills</span>
+            <span>One-person content operating system</span>
+          </div>
           <p class="prose">
             Three independent Claude Code agents — <em>visual-brand</em>, <em>write-blog</em>,
             <em>conference-roundup</em> — each with its own persistent knowledge base,
@@ -1020,6 +1774,11 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
         before I had any language for it — that I could move people at scale.
       </p>
     </div>
+    <figure class="chap-art" data-tone="stone" aria-hidden="true">
+      <div class="label">Dossier plate / 03</div>
+      <div class="title">A long apprenticeship in moving people.</div>
+      <div class="meta">writing, formation, fandom, conversion</div>
+    </figure>
 
     <div class="timeline">
 
@@ -1167,6 +1926,20 @@ footer .links { display: flex; gap: var(--s-4); flex-wrap: wrap; }
       team. If you want to see more before you reach out, the playbook is in
       <a href="#ch2">Chapter II</a>.
     </p>
+    <div class="fit-grid" aria-label="Ideal fit">
+      <div class="fit-item">
+        <strong>Best teams</strong>
+        <span>Research tools, AI products, frontier infra, or brands with genuinely hard stories to tell.</span>
+      </div>
+      <div class="fit-item">
+        <strong>Best mandate</strong>
+        <span>Own the narrative, build the engine, and prove growth through artifacts that feel impossible to ignore.</span>
+      </div>
+      <div class="fit-item">
+        <strong>Best collaboration</strong>
+        <span>Founders and product teams who want both taste and throughput, not one at the expense of the other.</span>
+      </div>
+    </div>
     <div class="now-contact">
       <a href="mailto:juchen1128@hotmail.com">juchen1128@hotmail.com</a>
       <span class="sep">·</span>
